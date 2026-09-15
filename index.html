@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+
+
+
+
+
+
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -996,12 +1004,12 @@
             }
 
             #footer-copy {
-                font-size: 0.45rem !important;
+                font-size: 10px !important;
                 color: var(--gold) !important;
             }
 
             #footer-brand-disclaimer {
-                font-size: 0.45rem !important;
+                font-size: 10px !important;
                 color: var(--gold) !important;
             }
         }
@@ -1194,6 +1202,11 @@
         <!-- PANEL DE ADMINISTRACIÓN OCULTO -->
         <div id="admin-panel" style="display: none; margin-top: 15px; background: rgba(3, 15, 9, 0.95); border: 1px solid var(--gold); padding: 12px; border-radius: 8px;">
             <h4 id="adm-title" style="color: var(--gold); font-family: 'Orbitron', sans-serif; font-size: 11px; margin-bottom: 8px;">⚙️ Adjust Stats & Corners</h4>
+            <div id="admin-visits-card" style="margin: 8px 0 12px; padding: 9px 10px; border: 1px solid var(--border); border-radius: 7px; background: rgba(0,0,0,.18);">
+                <div id="admin-visits-label" style="color: var(--gold); font-family: 'Orbitron', sans-serif; font-size: 9px; margin-bottom: 3px;">👁️ VISITAS REGISTRADAS</div>
+                <div id="admin-visits-count" style="color: #fff; font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 700;">—</div>
+                <div id="admin-visits-note" style="color: rgba(255,255,255,.65); font-size: 8px; margin-top: 2px;">Cada apertura de la página cuenta como una visita.</div>
+            </div>
 
 
 
@@ -1319,8 +1332,7 @@
                 <div class="form-group"><label style="font-size:8px;">Stake (Cuota)</label><input type="text" id="adm-odds-3" placeholder="Ej: 2.00"></div>
             </div>
 
-            <button class="btn-crystal-3d" id="adm-btn-save" onclick="guardarAdmin()" style="margin-top:0; padding:8px; font-size:10px;">Save Changes</button>
-        </div>
+            <button class="btn-crystal-3d" id="adm-btn-save" onclick="guardarAdmin()" style="margin-top:0; padding:8px; font-size:10px;">Save Changes</button>        </div>
     </div>
     <!-- ===== PARTIDO DESTACADO PUBLICO ===== --><section id="featured-match-banner" aria-live="polite">
 
@@ -1383,7 +1395,7 @@
         </div>
 
         <footer class="site-footer">
-            <p id="footer-copy" style="font-size: 1px !important; color: var(--gold) !important;">© 2026 PREDADICTOR. Todos los derechos reservados.</p>
+            <p id="footer-copy" style="font-size: 10px !important; color: var(--gold) !important;">© 2026 PREDADICTOR. Todos los derechos reservados.</p>
             <p id="footer-brand-disclaimer" style="font-size: 10px !important; color: var(--gold) !important;">Las marcas, logotipos y nombres de ligas mencionados pertenecen a sus respectivos dueños y se usan únicamente con fines informativos.</p>
 
         </footer>
@@ -1392,7 +1404,7 @@
         <script>
             // ===== SUPABASE =====
 const SUPABASE_URL = 'https://swzkzcolwbqkkcpiavae.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_rwklpjmWZyM9rpumvM75MQ_JDfk1AQG';
+            const SUPABASE_ANON_KEY = 'sb_publishable_rwklpjmWZyM9rpumvM75MQ_JDfk1AQG';
             const supabaseClient = (SUPABASE_URL.startsWith('http') && SUPABASE_ANON_KEY.trim())
                 ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
                 : null;
@@ -1465,6 +1477,8 @@ const SUPABASE_ANON_KEY = 'sb_publishable_rwklpjmWZyM9rpumvM75MQ_JDfk1AQG';
                     adminSaveFeatured: "💾 SAVE FEATURED MATCH & PUBLISH",
                     adminAffTitle: "🤝 AFFILIATE MANAGEMENT (BANNER / CTA)",
                     adminOddsTitle: "🎯 Manual Odds (Bookmakers)",
+                    adminVisits: "👁️ REGISTERED VISITS",
+                    adminVisitsNote: "Each page opening counts as one visit.",
                     promoExclusiva: "Exclusive Promotion",
                     verMas: "VIEW MORE",
                     footerCopy: "© 2026 PREDADICTOR. All rights reserved.",
@@ -1537,6 +1551,8 @@ const SUPABASE_ANON_KEY = 'sb_publishable_rwklpjmWZyM9rpumvM75MQ_JDfk1AQG';
                     adminSaveFeatured: "💾 GUARDAR PARTIDO DESTACADO Y PUBLICAR",
                     adminAffTitle: "🤝 GESTIÓN DE AFILIADOS (BANNER / BOTÓN)",
                     adminOddsTitle: "🎯 Cuotas Manuales (Casas de Apuestas)",
+                    adminVisits: "👁️ VISITAS REGISTRADAS",
+                    adminVisitsNote: "Cada apertura de la página cuenta como una visita.",
                     promoExclusiva: "Promoción Exclusiva",
                     verMas: "VER MÁS",
                     footerCopy: "© 2026 PREDADICTOR. Todos los derechos reservados.",
@@ -1609,6 +1625,8 @@ const SUPABASE_ANON_KEY = 'sb_publishable_rwklpjmWZyM9rpumvM75MQ_JDfk1AQG';
                     adminSaveFeatured: "💾 SPEICHERN & VERÖFFENTLICHEN",
                     adminAffTitle: "🤝 PARTNER-MANAGEMENT (BANNER / CTA)",
                     adminOddsTitle: "🎯 Manuelle Quoten (Buchmacher)",
+                    adminVisits: "👁️ REGISTRIERTE BESUCHE",
+                    adminVisitsNote: "Jedes Öffnen der Seite zählt als ein Besuch.",
                     promoExclusiva: "Exklusive Aktion",
                     verMas: "MEHR SEHEN",
                     footerCopy: "© 2026 PREDADICTOR. Alle Rechte vorbehalten.",
@@ -1681,6 +1699,8 @@ const SUPABASE_ANON_KEY = 'sb_publishable_rwklpjmWZyM9rpumvM75MQ_JDfk1AQG';
                     adminSaveFeatured: "💾 SALVA E PUBBLICA PARTITA",
                     adminAffTitle: "🤝 GESTIONE AFFILIAZIONI (BANNER / CTA)",
                     adminOddsTitle: "🎯 Quote Manuali (Bookmaker)",
+                    adminVisits: "👁️ VISITE REGISTRATE",
+                    adminVisitsNote: "Ogni apertura della pagina conta come una visita.",
                     promoExclusiva: "Promozione Esclusiva",
                     verMas: "VEDI DI PIÙ",
                     footerCopy: "© 2026 PREDADICTOR. Tutti i diritti riservati.",
@@ -1862,6 +1882,7 @@ const SUPABASE_ANON_KEY = 'sb_publishable_rwklpjmWZyM9rpumvM75MQ_JDfk1AQG';
             let supabaseReady = false;
 
             document.addEventListener('DOMContentLoaded', async () => {
+                registrarVisita();
                 const ageModal = document.getElementById('age-modal');
                 if (localStorage.getItem('predadiction_age_verified_v1') === 'true' && ageModal) ageModal.style.display = 'none';
                 try {
@@ -1883,6 +1904,32 @@ const SUPABASE_ANON_KEY = 'sb_publishable_rwklpjmWZyM9rpumvM75MQ_JDfk1AQG';
                     if (container && !container.contains(e.target)) container.classList.remove('active');
                 });
             });
+
+            async function registrarVisita() {
+                if (!supabaseClient) return;
+                try {
+                    const { error } = await supabaseClient.rpc('increment_page_visit');
+                    if (error) console.error('No se pudo registrar la visita:', error);
+                } catch (error) {
+                    console.error('Error registrando visita:', error);
+                }
+            }
+
+            async function cargarVisitasAdmin() {
+                const countEl = document.getElementById('admin-visits-count');
+                if (!countEl || !supabaseClient) return;
+                countEl.textContent = '…';
+                try {
+                    if (!await requireAdmin()) { countEl.textContent = '—'; return; }
+                    const { data, error } = await supabaseClient.rpc('get_page_visits');
+                    if (error) throw error;
+                    const total = Number(data || 0);
+                    countEl.textContent = total.toLocaleString('es-MX');
+                } catch (error) {
+                    console.error('No se pudieron cargar las visitas:', error);
+                    countEl.textContent = '—';
+                }
+            }
 
             function aceptarEdad() {
                 localStorage.setItem('predadiction_age_verified_v1', 'true');
@@ -1984,7 +2031,9 @@ const SUPABASE_ANON_KEY = 'sb_publishable_rwklpjmWZyM9rpumvM75MQ_JDfk1AQG';
                     'lbl-edge-sub': t.stdVal,
                     'lbl-best-pick-sub': t.highVal,
                     'footer-copy': t.footerCopy,
-                    'footer-brand-disclaimer': t.footerBrandDisclaimer
+                    'footer-brand-disclaimer': t.footerBrandDisclaimer,
+                    'admin-visits-label': t.adminVisits,
+                    'admin-visits-note': t.adminVisitsNote
                 };
 
                 for (const [id, texto] of Object.entries(elementos)) {
@@ -2281,6 +2330,7 @@ const SUPABASE_ANON_KEY = 'sb_publishable_rwklpjmWZyM9rpumvM75MQ_JDfk1AQG';
                 if (p.style.display !== 'none') { p.style.display = 'none'; return; }
                 if (supabaseClient && !await requireAdmin()) return;
                 p.style.display = 'block'; cambiarLiga();
+                cargarVisitasAdmin();
             }
 
             function cargarAdminTeam() {
@@ -2300,13 +2350,27 @@ const SUPABASE_ANON_KEY = 'sb_publishable_rwklpjmWZyM9rpumvM75MQ_JDfk1AQG';
             }
 
             async function guardarAdmin() {
+                alert('ENTRÉ A GUARDARADMIN');
+
                 const e = document.getElementById('admin-team').value;
                 const liga = document.getElementById('admin-league-select').value || document.getElementById('select-liga').value;
                 const registro = { league: liga, team: e, pj: parseInt(document.getElementById('adm-pj').value), gf: parseInt(document.getElementById('adm-gf').value), gc: parseInt(document.getElementById('adm-gc').value), cf: parseFloat(document.getElementById('adm-cf').value), cc: parseFloat(document.getElementById('adm-cc').value), odds1: document.getElementById('adm-odds-1').value, odds2: document.getElementById('adm-odds-2').value, odds3: document.getElementById('adm-odds-3').value, updated_at: new Date().toISOString() };
                 if (!e) { alert('Selecciona un equipo.'); return; } if (![registro.pj, registro.gf, registro.gc, registro.cf, registro.cc].every(Number.isFinite)) { alert('Completa todas las estadísticas del equipo.'); return; }
                 if (!supabaseClient) { datosActuales[e] = { pj: registro.pj, gf: registro.gf, gc: registro.gc, cf: registro.cf, cc: registro.cc, odds1: registro.odds1, odds2: registro.odds2, odds3: registro.odds3 }; BASE_DATOS[liga] = datosActuales; localStorage.setItem('multi_liga_data_corners_lang_anim_v6_aff', JSON.stringify(BASE_DATOS)); alert(TRADUCCIONES[currentLangCode].msgSaved + ' (modo local)'); cambiarLiga(); return; }
                 if (!await requireAdmin()) return;
-                const { error } = await supabaseClient.from('team_data').upsert(registro, { onConflict: 'league,team' }); if (error) { alert('No se pudo guardar en Supabase: ' + error.message); return; }
+                const { data, error } = await supabaseClient
+                    .from('team_data')
+                    .upsert(registro, { onConflict: 'league,team' })
+                    .select();
+
+                if (error) {
+                    alert('ERROR SUPABASE:\n' + JSON.stringify(error, null, 2));
+                    console.error('ERROR SUPABASE:', error);
+                    return;
+                }
+
+                alert('RESPUESTA SUPABASE:\n' + JSON.stringify(data, null, 2));
+                console.log('RESPUESTA SUPABASE:', data);
                 datosActuales[e] = { pj: registro.pj, gf: registro.gf, gc: registro.gc, cf: registro.cf, cc: registro.cc, odds1: registro.odds1, odds2: registro.odds2, odds3: registro.odds3 }; BASE_DATOS[liga] = datosActuales; alert(TRADUCCIONES[currentLangCode].msgSaved); cambiarLiga();
             }
         </script>
