@@ -1123,11 +1123,11 @@
                 <div class="result-card"><div class="label" id="lbl-aw">Away Win</div><div class="value" id="res-visitante">0%</div><div class="odds" id="odds-visitante">0.00</div></div>
             </div>
 
-            <div style="margin: 8px 0 12px; text-align: center; font-size: 9px; line-height: 1.5; color: rgba(255,255,255,.65);">
-                <strong style="color: var(--gold);">📊 Estimación de probabilidad</strong><br>
-               Probabilidad estimada mediante el modelo de Poisson a partir de los datos estadísticos disponibles.
-               No representa una garantía del resultado. Las estimaciones pueden cambiar conforme se incorporan nuevos datos.
-          </div>
+          <div style="margin: 8px 0 12px; text-align: center; font-size: 9px; line-height: 1.5; color: rgba(255,255,255,.65);">
+    <strong id="prob-estimate-title" style="color: var(--gold);">📊 Estimación de probabilidad</strong><br>
+    <span id="prob-estimate-text">Probabilidad estimada mediante el modelo de Poisson a partir de los datos estadísticos disponibles.</span>
+    <span id="prob-estimate-disclaimer">No representa una garantía del resultado. Las estimaciones pueden cambiar conforme se incorporan nuevos datos.</span>
+</div>
             
             <div style="display: none;">
                 <!-- COMPARADOR DE CUOTAS MANUAL (Añadido) -->
@@ -1418,6 +1418,9 @@ const SUPABASE_URL = 'https://swzkzcolwbqkkcpiavae.supabase.co';
                     selectAway: "Select away...",
                     generate: "Calculate Real-Time Forecast 📊",
                     dashboard: "📊 Advanced Analytical Dashboard",
+                    probEstimateTitle: "📊 Probability Estimate",
+                    probEstimateText: "Estimated probability calculated using the Poisson model based on the available statistical data.",
+                    probEstimateDisclaimer: "It does not represent a guarantee of the result. Estimates may change as new data is incorporated.",
                     sec1: "1. Match Trend (1X2) & Odds",
                     hw: "Home Win",
                     draw: "Draw",
@@ -1492,6 +1495,9 @@ const SUPABASE_URL = 'https://swzkzcolwbqkkcpiavae.supabase.co';
                     selectAway: "Selecciona visitante...",
                     generate: "Calcular en tiempo real 📊",
                     dashboard: "📊 Tablero Analítico Avanzado",
+                    probEstimateTitle: "📊 Estimación de probabilidad",
+                    probEstimateText: "Probabilidad estimada mediante el modelo de Poisson a partir de los datos estadísticos disponibles.",
+                    probEstimateDisclaimer: "No representa una garantía del resultado. Las estimaciones pueden cambiar conforme se incorporan nuevos datos.",
                     sec1: "1. Tendencia del Partido (1X2) y Cuotas",
                     hw: "Victoria Local",
                     draw: "Empate",
@@ -1566,6 +1572,11 @@ const SUPABASE_URL = 'https://swzkzcolwbqkkcpiavae.supabase.co';
                     selectAway: "Auswärts wählen...",
                     generate: "Prognose berechnen 📊",
                     dashboard: "📊 Erweitertes Analytisches Dashboard",
+                   
+                    probEstimateTitle: "📊 Wahrscheinlichkeitsschätzung",
+                    probEstimateText: "Geschätzte Wahrscheinlichkeit, die anhand des Poisson-Modells auf Grundlage der verfügbaren statistischen Daten berechnet wird.",
+                    probEstimateDisclaimer: "Sie stellt keine Garantie für das Ergebnis dar. Die Schätzungen können sich ändern, sobald neue Daten hinzukommen.",
+                   
                     sec1: "1. Spieltendenz (1X2) & Quoten",
                     hw: "Heimsieg",
                     draw: "Unentschieden",
@@ -1640,6 +1651,11 @@ const SUPABASE_URL = 'https://swzkzcolwbqkkcpiavae.supabase.co';
                     selectAway: "Seleziona ospite...",
                     generate: "Calcola in tempo reale 📊",
                     dashboard: "📊 Tabellone Analitico Avanzato",
+                   
+                    probEstimateTitle: "📊 Stima della probabilità",
+                    probEstimateText: "Probabilità stimata calcolata utilizzando il modello di Poisson sulla base dei dati statistici disponibili.",
+                    probEstimateDisclaimer: "Non rappresenta una garanzia del risultato. Le stime possono cambiare con l'inserimento di nuovi dati.",
+                    
                     sec1: "1. Tendenza Partita (1X2) e Quote",
                     hw: "Vittoria Casa",
                     draw: "Pareggio",
@@ -2000,6 +2016,9 @@ const SUPABASE_URL = 'https://swzkzcolwbqkkcpiavae.supabase.co';
                     'lbl-away': t.away,
                     'btn-generate': t.generate,
                     'lbl-dashboard': t.dashboard,
+                    'prob-estimate-title': t.probEstimateTitle,
+                    'prob-estimate-text': t.probEstimateText,
+                    'prob-estimate-disclaimer': t.probEstimateDisclaimer,
                     'sec-1': t.sec1,
                     'lbl-hw': t.hw,
                     'lbl-draw': t.draw,
