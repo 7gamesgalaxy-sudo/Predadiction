@@ -979,24 +979,34 @@
                 text-align: center;
             }
 
-        .admin-save-featured {
+       .admin-save-featured {
             margin-top: 9px;
             background: linear-gradient(135deg, rgba(243,186,47,.28), rgba(0,255,136,.12));
             border-color: var(--gold);
         }
 
+        /* CORRECCIÓN PARA CELULARES */
         @media(max-width:600px) {
+            /* Fuerza a las 3 casas de apuestas a estar en la misma fila sin salir de la pantalla */
             .featured-odds-grid {
-                grid-template-columns: 1fr;
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 5px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
             }
 
             .featured-bookie {
-                padding: 8px 10px;
+                padding: 6px 4px !important;
+                box-sizing: border-box !important;
             }
 
             .featured-1x2 {
-                max-width: 260px;
-                margin: auto;
+                max-width: 100% !important; /* Se elimina el límite de 260px */
+                margin: 0 auto !important;
+                display: flex !important;
+                justify-content: space-around !important;
+                font-size: 10px !important;
             }
 
             .admin-featured-grid {
@@ -1005,11 +1015,6 @@
 
             #footer-copy {
                 font-size: 10px !important;
-                color: var(--gold) !important;
-            }
-
-            #footer-brand-disclaimer {
-                font-size: 14px !important;
                 color: var(--gold) !important;
             }
         }
