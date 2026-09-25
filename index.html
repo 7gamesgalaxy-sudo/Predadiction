@@ -2481,6 +2481,87 @@ function calcularPronostico() {
                                     }
         </script>
 <script src="https://pl31487045.profitableratecpmnetwork.com/99/a0/f0/99a0f0c8aeb102fc15ba77594e16e858.js"></script>
+        <!-- ESTILOS DE LA ALERTA VISUAL -->
+  <style>
+    .toast-notification {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(11, 26, 48, 0.95);
+      border: 1px solid #00b4d8;
+      box-shadow: 0 0 15px rgba(0, 180, 216, 0.4);
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease-in-out;
+      pointer-events: none;
+      max-width: 320px;
+    }
+
+    .toast-notification.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .toast-icon {
+      font-size: 22px;
+    }
+
+    .toast-content strong {
+      color: #00f5d4;
+    }
+
+    .toast-time {
+      display: block;
+      font-size: 11px;
+      color: #a0aec0;
+      margin-top: 2px;
+    }
+  </style>
+
+  <!-- ESTRUCTURA DE LA ALERTA -->
+  <div id="bonus-toast" class="toast-notification">
+    <div class="toast-icon">🎁</div>
+    <div class="toast-content">
+      <span id="toast-text"></span>
+      <span class="toast-time">Hace un momento • Código: <strong>1x_5782424</strong></span>
+    </div>
+  </div>
+
+  <!-- LÓGICA EN JAVASCRIPT -->
+  <script>
+    (function() {
+      const nombres = ["Carlos M.", "Alejandro R.", "Luis G.", "Fernando P.", "Mateo S.", "Daniel K.", "Javier T.", "Andrés V."];
+      const ciudades = ["CDMX", "Guadalajara", "Monterrey", "Puebla", "Tijuana", "Toluca", "León", "Querétaro"];
+
+      const toast = document.getElementById('bonus-toast');
+      const toastText = document.getElementById('toast-text');
+
+      function mostrarNotificacion() {
+        const nombreAleatorio = nombres[Math.floor(Math.random() * nombres.length)];
+        const ciudadAleatoria = ciudades[Math.floor(Math.random() * ciudades.length)];
         
+        toastText.innerHTML = `🔥 <strong>${nombreAleatorio}</strong> (${ciudadAleatoria}) activó su bono del 100% en 1xBet.`;
+        
+        toast.classList.add('show');
+
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 5000);
+      }
+
+      setTimeout(mostrarNotificacion, 4000);
+      setInterval(mostrarNotificacion, 18000);
+    })();
+  </script>
 </body>
 </html>
