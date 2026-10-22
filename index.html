@@ -1383,8 +1383,6 @@
             </div>
 
             <button class="btn-crystal-3d" id="btn-generate" onclick="calcularPronostico()">Calculate Real-Time Forecast 📊</button>
-            <button class="btn-crystal-3d" id="btn-publish-poryfut" onclick="publicarPronosticoPoryFut()" style="display:none;margin-top:12px;">📡 Publicar pronóstico en PoryFut</button>
-            <p id="poryfut-publish-status" role="status" style="display:none;margin-top:8px;font-size:13px;color:#9cffb1;"></p>
         </div>
 
         <!-- FIN PUBLICIDAD SECUNDARIA 1XBET -->
@@ -1505,6 +1503,12 @@
         <!-- PANEL DE ADMINISTRACIÓN OCULTO -->
         <div id="admin-panel" style="display: none; margin-top: 15px; background: rgba(3, 15, 9, 0.95); border: 1px solid var(--gold); padding: 12px; border-radius: 8px;">
             <h4 id="adm-title" style="color: var(--gold); font-family: 'Orbitron', sans-serif; font-size: 13px; margin-bottom: 8px;">⚙️ Adjust Stats & Corners</h4>
+            <section id="admin-poryfut-publish" style="margin: 10px 0 14px; padding: 12px; border: 1px solid rgba(212,175,55,.55); border-radius: 9px; background: rgba(212,175,55,.06);">
+                <div style="font-family: 'Orbitron', sans-serif; color: var(--gold); font-size: 11px; margin-bottom: 6px;">🔒 PUBLICACIÓN PRIVADA · PORYFUT</div>
+                <p style="font-size: 12px; color: rgba(255,255,255,.78); margin: 0 0 9px;">Esta opción solo aparece dentro del panel de administración. Calcula un pronóstico y publícalo desde aquí.</p>
+                <button class="btn-crystal-3d" id="btn-publish-poryfut" onclick="publicarPronosticoPoryFut()" style="display:none;margin-top:4px;">📡 Publicar pronóstico en PoryFut</button>
+                <p id="poryfut-publish-status" role="status" aria-live="polite" style="display:none;margin-top:8px;font-size:13px;color:#9cffb1;"></p>
+            </section>
             <div id="admin-visits-card" style="margin: 8px 0 12px; padding: 9px 10px; border: 1px solid var(--border); border-radius: 7px; background: rgba(0,0,0,.18);">
                 <div id="admin-visits-label" style="color: var(--gold); font-family: 'Orbitron', sans-serif; font-size: 11px; margin-bottom: 3px;">👁️ VISITAS REGISTRADAS</div>
                 <div id="admin-visits-count" style="color: #fff; font-family: 'Orbitron', sans-serif; font-size: 19px; font-weight: 700;">—</div>
@@ -2585,6 +2589,8 @@ async function publicarPronosticoPoryFut() {
     };
     if (!poryFutLastPrediction) { say('Primero calcula un pronóstico.'); return; }
     if (!supabaseClient) { say('No hay conexión con Supabase. Revisa la configuración de la base de datos.'); return; }
+    const adminPanel = document.getElementById('admin-panel');
+    if (!adminPanel || adminPanel.style.display === 'none') { say('Abre el panel privado de administración para publicar.'); return; }
     const session = await requireAdmin();
     if (!session) { say('No se inició sesión de administrador. No se publicó nada.'); return; }
     if (button) { button.disabled = true; button.textContent = 'Publicando…'; }
