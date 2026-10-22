@@ -1,12 +1,5 @@
 <!DOCTYPE html>
 
-
-
-
-
-
-
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1390,6 +1383,8 @@
             </div>
 
             <button class="btn-crystal-3d" id="btn-generate" onclick="calcularPronostico()">Calculate Real-Time Forecast 📊</button>
+            <button class="btn-crystal-3d" id="btn-publish-poryfut" onclick="publicarPronosticoPoryFut()" style="display:none;margin-top:12px;">📡 Publicar pronóstico en PoryFut</button>
+            <p id="poryfut-publish-status" role="status" style="display:none;margin-top:8px;font-size:13px;color:#9cffb1;"></p>
         </div>
 
         <!-- FIN PUBLICIDAD SECUNDARIA 1XBET -->
@@ -1654,7 +1649,7 @@
     <section id="featured-match-banner" aria-live="polite">
 
         <div class="featured-head">
-            <div class="featured-kicker"> El orgullo del millonario contra la garra Xeneize </div>
+            <div class="featured-kicker">🔥 MEJOR PARTIDO DEL FIN DE SEMANA</div>
             <div class="featured-match-title" id="featured-match-title">Partido destacado</div>
             <div class="featured-meta" id="featured-match-meta"></div>
         </div>
@@ -2580,7 +2575,49 @@ function ajustarPorConfiabilidad(pL, pE, pV, pjLocal, pjVisitante, mediaLiga, rh
                                                                 };
 }
 
-                                                                                        function calcularPronostico() {
+                                                                                        let poryFutLastPrediction = null;
+
+async function publicarPronosticoPoryFut() {
+    const status = document.getElementById('poryfut-publish-status');
+    const button = document.getElementById('btn-publish-poryfut');
+    const say = (message, ok = false) => {
+        if (status) { status.style.display = 'block'; status.textContent = message; status.style.color = ok ? '#9cffb1' : '#ffd27a'; }
+    };
+    if (!poryFutLastPrediction) { say('Primero calcula un pronóstico.'); return; }
+    if (!supabaseClient) { say('No hay conexión con Supabase. Revisa la configuración de la base de datos.'); return; }
+    const session = await requireAdmin();
+    if (!session) { say('No se inició sesión de administrador. No se publicó nada.'); return; }
+    if (button) { button.disabled = true; button.textContent = 'Publicando…'; }
+    try {
+        const client = supabaseClient;
+        const payload = { ...poryFutLastPrediction };
+        const { data: rows, error: readError } = await client.from('poryfut_featured_matches')
+            .select('id,league,date,home,away,p_home,p_draw,p_away,sort_order')
+            .eq('active', true).order('sort_order', { ascending: true });
+        if (readError) throw readError;
+        const matches = Array.isArray(rows) ? rows : [];
+        const same = matches.find(m => String(m.home).trim().toLowerCase() === payload.home.trim().toLowerCase() && String(m.away).trim().toLowerCase() === payload.away.trim().toLowerCase() && String(m.league).trim().toLowerCase() === payload.league.trim().toLowerCase());
+        let result;
+        if (same) {
+            result = await client.from('poryfut_featured_matches').update({ ...payload, active: true, updated_at: new Date().toISOString() }).eq('id', same.id);
+        } else if (matches.length < 4) {
+            const nextOrder = matches.reduce((n, m) => Math.max(n, Number(m.sort_order) || 0), 0) + 1;
+            result = await client.from('poryfut_featured_matches').insert({ ...payload, sort_order: nextOrder, active: true, updated_at: new Date().toISOString() });
+        } else {
+            const last = matches.reduce((a, b) => (Number(a.sort_order) || 0) > (Number(b.sort_order) || 0) ? a : b);
+            result = await client.from('poryfut_featured_matches').update({ ...payload, sort_order: last.sort_order, active: true, updated_at: new Date().toISOString() }).eq('id', last.id);
+        }
+        if (result.error) throw result.error;
+        say('¡Pronóstico publicado! PoryFut lo leerá desde Supabase. Si la portada ya estaba abierta, recárgala.', true);
+    } catch (error) {
+        console.error('PoryFut publish error:', error);
+        say('No se pudo publicar: ' + (error?.message || 'error de Supabase') + '. Revisa que ejecutaste el SQL actualizado y que tu sesión tenga permisos.');
+    } finally {
+        if (button) { button.disabled = false; button.textContent = '📡 Publicar pronóstico en PoryFut'; }
+    }
+}
+
+function calcularPronostico() {
                                                                                         const t = TRADUCCIONES[currentLangCode];
                                                                                         const locKey = document.getElementById('select-local').value;
                                                                                         const visKey = document.getElementById('select-visitante').value;
@@ -2691,6 +2728,25 @@ function ajustarPorConfiabilidad(pL, pE, pV, pjLocal, pjVisitante, mediaLiga, rh
                                                                                             referenciaLiga: ajusteConfianza.referencia,
                                                                                             ventajaLocalia: (ajusteLocalia.ajuste * 100).toFixed(1) + ' puntos porcentuales'
                                                                                         });
+
+                                                                                        const leagueSelect = document.getElementById('select-liga');
+                                                                                        const homeSelect = document.getElementById('select-local');
+                                                                                        const awaySelect = document.getElementById('select-visitante');
+                                                                                        const roundedHome = Number((pL * 100).toFixed(2));
+                                                                                        const roundedDraw = Number((pE * 100).toFixed(2));
+                                                                                        const roundedAway = Number((100 - roundedHome - roundedDraw).toFixed(2));
+                                                                                        poryFutLastPrediction = {
+                                                                                            league: (leagueSelect?.selectedOptions?.[0]?.textContent || leagueSelect?.value || 'FÚTBOL').trim(),
+                                                                                            date: 'Actualizado ' + new Date().toLocaleDateString('es-MX'),
+                                                                                            home: (homeSelect?.selectedOptions?.[0]?.textContent || '').trim(),
+                                                                                            away: (awaySelect?.selectedOptions?.[0]?.textContent || '').trim(),
+                                                                                            p_home: roundedHome, p_draw: roundedDraw, p_away: roundedAway,
+                                                                                            sort_order: 1, active: true, updated_at: new Date().toISOString()
+                                                                                        };
+                                                                                        const publishButton = document.getElementById('btn-publish-poryfut');
+                                                                                        if (publishButton) publishButton.style.display = 'inline-block';
+                                                                                        const publishStatus = document.getElementById('poryfut-publish-status');
+                                                                                        if (publishStatus) { publishStatus.style.display = 'none'; publishStatus.textContent = ''; }
 
                                                                                         document.getElementById('res-local').innerText = (pL * 100).toFixed(1) + '%';
                                                                                         document.getElementById('odds-local').innerText = (1 / pL).toFixed(2);
