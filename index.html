@@ -2589,8 +2589,6 @@ async function publicarPronosticoPoryFut() {
     };
     if (!poryFutLastPrediction) { say('Primero calcula un pronóstico.'); return; }
     if (!supabaseClient) { say('No hay conexión con Supabase. Revisa la configuración de la base de datos.'); return; }
-    const adminPanel = document.getElementById('admin-panel');
-    if (!adminPanel || adminPanel.style.display === 'none') { say('Abre el panel privado de administración para publicar.'); return; }
     const session = await requireAdmin();
     if (!session) { say('No se inició sesión de administrador. No se publicó nada.'); return; }
     if (button) { button.disabled = true; button.textContent = 'Publicando…'; }
@@ -2598,26 +2596,31 @@ async function publicarPronosticoPoryFut() {
         const client = supabaseClient;
         const payload = { ...poryFutLastPrediction };
         const { data: rows, error: readError } = await client.from('poryfut_featured_matches')
-            .select('id,league,date,home,away,p_home,p_draw,p_away,sort_order')
+            .select('id,league,date,home,away,p_home,p_draw,p_away,sort_order,active')
             .eq('active', true).order('sort_order', { ascending: true });
         if (readError) throw readError;
         const matches = Array.isArray(rows) ? rows : [];
-        const same = matches.find(m => String(m.home).trim().toLowerCase() === payload.home.trim().toLowerCase() && String(m.away).trim().toLowerCase() === payload.away.trim().toLowerCase() && String(m.league).trim().toLowerCase() === payload.league.trim().toLowerCase());
+
+        // sort_order 1 y 2 son los partidos permanentes de la portada.
+        // La publicación de Predadiction solo ocupa/actualiza el espacio 3.
+        const dynamicMatch = matches.find(m => Number(m.sort_order) === 3);
         let result;
-        if (same) {
-            result = await client.from('poryfut_featured_matches').update({ ...payload, active: true, updated_at: new Date().toISOString() }).eq('id', same.id);
-        } else if (matches.length < 4) {
-            const nextOrder = matches.reduce((n, m) => Math.max(n, Number(m.sort_order) || 0), 0) + 1;
-            result = await client.from('poryfut_featured_matches').insert({ ...payload, sort_order: nextOrder, active: true, updated_at: new Date().toISOString() });
+        const dynamicPayload = { ...payload, sort_order: 3, active: true, updated_at: new Date().toISOString() };
+        if (dynamicMatch) {
+            result = await client.from('poryfut_featured_matches').update(dynamicPayload).eq('id', dynamicMatch.id);
         } else {
-            const last = matches.reduce((a, b) => (Number(a.sort_order) || 0) > (Number(b.sort_order) || 0) ? a : b);
-            result = await client.from('poryfut_featured_matches').update({ ...payload, sort_order: last.sort_order, active: true, updated_at: new Date().toISOString() }).eq('id', last.id);
+            result = await client.from('poryfut_featured_matches').insert(dynamicPayload);
         }
         if (result.error) throw result.error;
-        say('¡Pronóstico publicado! PoryFut lo leerá desde Supabase. Si la portada ya estaba abierta, recárgala.', true);
+        // Limpia publicaciones antiguas heredadas en espacios 4+; los puestos 1 y 2 no se tocan.
+        const { error: cleanupError } = await client.from('poryfut_featured_matches')
+            .update({ active: false, updated_at: new Date().toISOString() })
+            .eq('active', true).gt('sort_order', 3);
+        if (cleanupError) console.warn('No se pudieron desactivar publicaciones antiguas de espacios 4+:', cleanupError);
+        say('¡Pronóstico actualizado en el espacio 3! Los dos partidos fijos se conservan. Los porcentajes son los del modelo; los escudos aparecen si hay URL registrada para cada equipo. Recarga PoryFut si ya estaba abierto.', true);
     } catch (error) {
         console.error('PoryFut publish error:', error);
-        say('No se pudo publicar: ' + (error?.message || 'error de Supabase') + '. Revisa que ejecutaste el SQL actualizado y que tu sesión tenga permisos.');
+        say('No se pudo publicar: ' + (error?.message || 'error de Supabase') + '. Revisa permisos y columnas de la tabla.');
     } finally {
         if (button) { button.disabled = false; button.textContent = '📡 Publicar pronóstico en PoryFut'; }
     }
@@ -2746,8 +2749,10 @@ function calcularPronostico() {
                                                                                             date: 'Actualizado ' + new Date().toLocaleDateString('es-MX'),
                                                                                             home: (homeSelect?.selectedOptions?.[0]?.textContent || '').trim(),
                                                                                             away: (awaySelect?.selectedOptions?.[0]?.textContent || '').trim(),
+                                                                                            home_logo: eqL.logo || eqL.logo_url || eqL.escudo || eqL.escudo_url || eqL.strTeamBadge || '',
+                                                                                            away_logo: eqV.logo || eqV.logo_url || eqV.escudo || eqV.escudo_url || eqV.strTeamBadge || '',
                                                                                             p_home: roundedHome, p_draw: roundedDraw, p_away: roundedAway,
-                                                                                            sort_order: 1, active: true, updated_at: new Date().toISOString()
+                                                                                            sort_order: 3, active: true, updated_at: new Date().toISOString()
                                                                                         };
                                                                                         const publishButton = document.getElementById('btn-publish-poryfut');
                                                                                         if (publishButton) publishButton.style.display = 'inline-block';
