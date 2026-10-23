@@ -871,9 +871,9 @@
 
         .featured-kicker {
             display: inline-block;
-            color: var(--gold);
+            color: darkorange;
             font-family: 'Orbitron', sans-serif;
-            font-size: 10px;
+            font-size: 18px;
             font-weight: 900;
             letter-spacing: 1.2px;
             text-transform: uppercase;
@@ -1286,6 +1286,47 @@
 #predadiction-carousel-admin{border:1px solid rgba(220,180,80,.45);border-radius:10px;padding:12px;margin:12px 0 16px;background:linear-gradient(145deg,rgba(212,175,55,.08),rgba(0,0,0,.18))}#predadiction-carousel-admin h5{color:var(--gold);font:700 12px 'Orbitron',sans-serif;margin:0 0 7px}#predadiction-carousel-admin p{font-size:11px;color:rgba(255,255,255,.72);margin:0 0 10px}#predadiction-carousel-admin .pc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}#predadiction-carousel-admin .form-group{min-width:0;margin-bottom:8px}#predadiction-carousel-admin label{display:block;font-size:10px;color:#d7c58b;margin-bottom:4px}#predadiction-carousel-admin input,#predadiction-carousel-admin select{width:100%;box-sizing:border-box;min-width:0}#predadiction-carousel-admin .pc-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:7px}#predadiction-carousel-admin .pc-actions button{flex:1;min-width:150px}#pc-admin-status{font-size:11px;color:#e8cf7a;margin-top:8px;white-space:pre-wrap}#pc-admin-list{display:grid;gap:5px;margin-top:9px}#pc-admin-list .pc-row{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:7px 9px;border:1px solid #3a453e;border-radius:7px;font-size:10px;color:#eee}#pc-admin-list .pc-row small{color:#d9c47d}@media(max-width:480px){#predadiction-carousel-admin .pc-grid{grid-template-columns:1fr}}
 </style>
 
+<style id="pf-crystal-carousel-css">
+/* Pory Fut / Predadiction: carrusel cristalino 3D integrado al selector real */
+#pf-crystal-carousel{--pf-green:#00f5a0;--pf-gold:#f3ba2f;position:relative;isolation:isolate;width:100%;margin:10px 0 14px;padding:15px 8px 12px;border-radius:16px;overflow:hidden;background:radial-gradient(ellipse at 50% 62%,rgba(0,255,153,.14),rgba(3,15,10,.72) 55%,rgba(0,0,0,.82));border:1px solid rgba(50,255,174,.26);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),inset 0 -18px 35px rgba(0,0,0,.35),0 12px 25px rgba(0,0,0,.28)}
+#pf-crystal-carousel:before{content:"";position:absolute;inset:4px;border:1px solid rgba(255,255,255,.035);border-radius:12px;pointer-events:none}
+.pfcc-heading{text-align:center;font:800 12px Orbitron,sans-serif;letter-spacing:2px;color:#53ffc0;text-shadow:0 0 12px rgba(0,255,160,.35);position:relative;z-index:4}.pfcc-subheading{text-align:center;font:600 9px Rajdhani,sans-serif;letter-spacing:1.5px;color:#8db6a3;margin:5px 0 0;position:relative;z-index:4}
+.pfcc-stage{height:254px;position:relative;perspective:1050px;perspective-origin:50% 42%;overflow:hidden;touch-action:pan-y;cursor:grab}.pfcc-stage:active{cursor:grabbing}.pfcc-track{position:absolute;inset:0;transform-style:preserve-3d}
+.pfcc-floor{position:absolute;z-index:0;left:5%;right:5%;bottom:9px;height:42px;background:radial-gradient(ellipse,rgba(0,255,170,.22) 0%,rgba(0,255,170,.07) 38%,transparent 73%);filter:blur(7px);border-bottom:1px solid rgba(0,255,170,.12)}
+.pfcc-card{position:absolute;left:50%;top:47%;width:142px;height:177px;margin:-88px 0 0 -71px;border-radius:15px;cursor:pointer;transform-style:preserve-3d;overflow:visible;transition:transform 1.15s cubic-bezier(.2,.8,.2,1),opacity 1s ease,filter 1s ease;outline:none}
+.pfcc-card:before{content:"";position:absolute;inset:0;border-radius:14px;background:linear-gradient(135deg,rgba(255,255,255,.43),rgba(64,255,193,.15) 19%,rgba(3,31,22,.7) 48%,rgba(243,186,47,.28) 82%,rgba(255,255,255,.3));border:1px solid rgba(190,255,231,.64);box-shadow:inset 2px 2px 4px rgba(255,255,255,.2),inset -4px -5px 9px rgba(0,0,0,.6),0 15px 22px rgba(0,0,0,.62);transform:translateZ(1px)}
+.pfcc-card:after{content:"";position:absolute;left:13%;right:13%;bottom:-25px;height:18px;border-radius:50%;background:radial-gradient(ellipse,rgba(0,0,0,.9),rgba(0,0,0,.32) 48%,transparent 75%);filter:blur(5px);transform:translateZ(-30px) rotateX(72deg);opacity:.88;pointer-events:none}
+.pfcc-card-inner{position:absolute;inset:3px;border-radius:11px;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:11px 8px 12px;background:linear-gradient(145deg,rgba(19,65,48,.66),rgba(2,13,9,.9) 52%,rgba(10,36,26,.76));backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),inset 0 0 22px rgba(0,255,163,.07);transform:translateZ(3px)}
+.pfcc-card-inner:before{content:"";position:absolute;inset:-60% -80%;background:linear-gradient(115deg,transparent 43%,rgba(255,255,255,.11) 49%,transparent 55%);transform:translateX(-12%);pointer-events:none}
+.pfcc-side{position:absolute;top:6px;bottom:6px;width:14px;background:linear-gradient(90deg,rgba(0,255,160,.14),rgba(0,0,0,.65));border:1px solid rgba(126,255,210,.23);transform:translateX(-7px) rotateY(-90deg);transform-origin:right center;border-radius:3px}
+.pfcc-logo{height:74px;width:84px;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 5px 7px rgba(0,0,0,.65));position:relative;z-index:2}.pfcc-logo img{max-width:100%;max-height:100%;object-fit:contain}.pfcc-monogram{width:68px;height:68px;display:grid;place-items:center;border-radius:50%;font:900 27px Orbitron,sans-serif;color:#fff;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.32),rgba(0,255,160,.12) 38%,rgba(0,0,0,.55));border:2px solid rgba(210,255,239,.68);box-shadow:inset 0 0 15px rgba(0,255,160,.2),0 0 15px rgba(0,255,160,.1)}
+.pfcc-name{font:800 11px Orbitron,sans-serif;text-align:center;letter-spacing:.3px;color:#f2fff9;text-shadow:0 2px 5px #000;line-height:1.25;position:relative;z-index:2}.pfcc-country{font:700 9px Rajdhani,sans-serif;letter-spacing:1px;color:#b6d6c8;text-align:center;margin-top:5px;position:relative;z-index:2}.pfcc-status{font:700 7px Orbitron,sans-serif;letter-spacing:1px;color:#f3d478;opacity:0;position:absolute;top:7px;left:0;right:0;text-align:center;z-index:3}
+/* Refuerzo de cubo cristalino físico y sombra proyectada */
+.pfcc-card:before{background:linear-gradient(135deg,rgba(255,255,255,.48),rgba(84,255,199,.18) 16%,rgba(5,36,27,.62) 43%,rgba(0,8,5,.88) 66%,rgba(243,186,47,.30) 84%,rgba(255,255,255,.34));border:1px solid rgba(205,255,238,.72);box-shadow:inset 3px 3px 6px rgba(255,255,255,.24),inset -7px -7px 12px rgba(0,0,0,.68),0 16px 25px rgba(0,0,0,.68),0 0 10px rgba(0,255,160,.08)}
+.pfcc-card:after{left:7%;right:7%;bottom:-28px;height:21px;background:radial-gradient(ellipse,rgba(0,0,0,.92) 0%,rgba(0,0,0,.45) 42%,rgba(0,255,160,.10) 58%,transparent 76%);filter:blur(6px);opacity:.96}
+.pfcc-logo{width:86px;height:76px;filter:drop-shadow(0 4px 5px rgba(0,0,0,.85)) drop-shadow(0 0 5px rgba(130,255,213,.12))}
+.pfcc-logo img{display:block;max-width:100%;max-height:100%;object-fit:contain}
+.pfcc-monogram{flex:0 0 auto;background:linear-gradient(145deg,rgba(255,255,255,.28),rgba(0,255,160,.16) 42%,rgba(0,0,0,.65));border-radius:15px;border:2px solid rgba(220,255,241,.78);box-shadow:inset 0 2px 4px rgba(255,255,255,.24),inset 0 -5px 8px rgba(0,0,0,.58),0 4px 12px rgba(0,255,160,.13)}
+.pfcc-card-inner{background:linear-gradient(145deg,rgba(30,86,65,.62),rgba(2,13,9,.88) 52%,rgba(10,36,26,.74));}
+.pfcc-card.active:before{box-shadow:inset 3px 3px 6px rgba(255,255,255,.34),inset -7px -7px 12px rgba(0,0,0,.62),0 0 0 1px rgba(0,255,160,.55),0 0 26px rgba(0,255,160,.28),0 20px 30px rgba(0,0,0,.75)}
+.pfcc-card-inner>span:first-child{pointer-events:none}
+.pfcc-card.active:before{border-color:#e6d28b;box-shadow:inset 2px 2px 5px rgba(255,255,255,.34),inset -5px -5px 12px rgba(0,0,0,.5),0 0 0 1px rgba(0,255,160,.55),0 0 26px rgba(0,255,160,.3),0 18px 28px rgba(0,0,0,.7)}.pfcc-card.active .pfcc-card-inner{background:linear-gradient(145deg,rgba(22,90,63,.72),rgba(2,17,11,.88) 54%,rgba(49,39,11,.54));box-shadow:inset 0 0 0 1px rgba(255,255,255,.13),inset 0 0 25px rgba(0,255,163,.13)}.pfcc-card.active .pfcc-name{color:#fff4c9;text-shadow:0 0 9px rgba(243,186,47,.25)}.pfcc-card.active .pfcc-status{opacity:1}.pfcc-controls{position:relative;z-index:5;display:flex;align-items:center;justify-content:center;gap:13px;margin-top:-2px}.pfcc-controls button{width:30px;height:30px;border-radius:50%;background:linear-gradient(145deg,rgba(0,255,160,.14),rgba(0,0,0,.35));border:1px solid rgba(0,255,160,.48);color:#72ffca;font-size:22px;line-height:1;cursor:pointer;box-shadow:inset 0 1px 1px rgba(255,255,255,.1),0 3px 8px rgba(0,0,0,.4)}.pfcc-controls button:hover{box-shadow:0 0 13px rgba(0,255,160,.28);transform:scale(1.06)}.pfcc-controls span{font:600 10px Rajdhani,sans-serif;color:#9bbcac;letter-spacing:.3px}.pfcc-native-select{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;left:-9999px!important}
+/* Ajuste de escala: el selector acompaña la página sin robarle protagonismo */
+#pf-crystal-carousel{max-width:100%;padding:11px 7px 9px;margin:7px 0 11px;border-radius:14px}
+.pfcc-heading{font-size:11px;letter-spacing:1.5px}.pfcc-subheading{font-size:8px;margin:3px 0 0}
+.pfcc-stage{height:218px;perspective:1150px;perspective-origin:50% 44%}
+.pfcc-card{width:124px;height:156px;margin:-78px 0 0 -62px}
+.pfcc-card:after{bottom:-24px;height:17px}
+.pfcc-card-inner{padding:9px 7px 10px}
+.pfcc-logo{height:62px;width:70px}
+.pfcc-logo img{width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1) drop-shadow(0 0 5px rgba(90,255,200,.3));opacity:.96}
+.pfcc-monogram{width:53px;height:53px;font-size:19px;border-radius:13px}
+.pfcc-name{font-size:9px;letter-spacing:.15px}.pfcc-country{font-size:8px;letter-spacing:.6px;margin-top:3px}
+.pfcc-controls{gap:10px;margin-top:0}.pfcc-controls button{width:28px;height:28px;font-size:20px}.pfcc-controls span{font-size:9px}
+@media(max-width:520px){#pf-crystal-carousel{padding:9px 4px 8px}.pfcc-stage{height:190px}.pfcc-card{width:104px;height:136px;margin:-68px 0 0 -52px}.pfcc-logo{height:52px;width:60px}.pfcc-monogram{width:46px;height:46px;font-size:16px}.pfcc-name{font-size:8px}.pfcc-country{font-size:7px}.pfcc-controls{gap:7px}.pfcc-controls span{font-size:8px}}
+
+@media(prefers-reduced-motion:reduce){.pfcc-card{transition:none!important}}
+</style>
 </head>
 <body>
 
@@ -1367,11 +1408,18 @@
 
 
         <div class="card">
-            <h2 id="lbl-match-sel">🏆 Match Selection</h2>
+            <h2 id="lbl-match-sel"> Match Selection</h2>
 
-            <div class="form-group">
-                <label id="lbl-league">Competition / League</label>
-                <select id="select-liga" onchange="cambiarLiga()">
+            <div class="form-group league-selector-visual">
+                
+                
+                <div id="pf-crystal-carousel" aria-label="Selector de ligas de fútbol">
+                 
+                    <div class="pfcc-subheading">Competition / League</div>
+                  <div class="pfcc-stage" id="pfcc-stage"><div class="pfcc-floor"></div><div class="pfcc-track" id="pfcc-track"></div></div>
+                  <div class="pfcc-controls"><button type="button" id="pfcc-prev" aria-label="Liga anterior">‹</button><span>Gira el carrusel o elige una liga</span><button type="button" id="pfcc-next" aria-label="Liga siguiente">›</button></div>
+                </div>
+                <select id="select-liga" onchange="cambiarLiga()" aria-label="Competition / League" class="pfcc-native-select">
                     <option value="premier" id="opt-premier">🇬🇧 Premier League (England)</option>
                     <option value="laliga" id="opt-laliga">🇪🇸 LaLiga (Spain)</option>
                     <option value="seriea" id="opt-seriea">🇮🇹 Serie A (Italy)</option>
@@ -1387,7 +1435,7 @@
                 <div class="form-group"><label id="lbl-away">Away Team</label><select id="select-visitante"></select></div>
             </div>
 
-            <button class="btn-crystal-3d" id="btn-generate" onclick="calcularPronostico()">Calculate Real-Time Forecast 📊</button>
+            <button class="btn-crystal-3d" id="btn-generate" onclick="calcularPronostico()">Calculate Real-Time Forecast ƒ+(∑)=↊</button>
         </div>
 
         <!-- FIN PUBLICIDAD SECUNDARIA 1XBET -->
@@ -1400,7 +1448,7 @@
 
 
 
-            <h2 id="lbl-dashboard">📊 Advanced Analytical Dashboard</h2>
+            <h2 id="lbl-dashboard"> Advanced Analytical Dashboard ƒ+(∑)=↊</h2>
 
             <span class="section-badge" id="sec-1">1. Match Trend (1X2) & Odds</span>
             <div class="results-grid">
@@ -1677,7 +1725,7 @@
     <section id="featured-match-banner" aria-live="polite">
 
         <div class="featured-head">
-            <div class="featured-kicker">🔥 MEJOR PARTIDO DEL FIN DE SEMANA</div>
+            <div class="featured-kicker"> 𝕰𝖑 𝕺𝖗𝖌𝖚𝖑𝖑𝖔 𝕸𝖎𝖑𝖑𝖔𝖓𝖆𝖗𝖎𝖔 𝚅𝚂 𝕷𝖆 𝖌𝖆𝖗𝖗𝖆 𝖃𝖊𝖓𝖊𝖎𝖟𝖊 </div>
             <div class="featured-match-title" id="featured-match-title">Partido destacado</div>
             <div class="featured-meta" id="featured-match-meta"></div>
         </div>
@@ -3105,5 +3153,154 @@ function aplicarEstiloNeonDinamico(elementId, probabilidad) {
 })();
 </script>
 
+
+<style id="pfcc-final-float-and-logo-fix">
+/* Movimiento sutil independiente: la posición del carrusel queda quieta y solo flota la cara interior. */
+@keyframes pfccGentleFloat { 0%,100% { translate: 0 0; } 50% { translate: 0 -5px; } }
+.pfcc-card .pfcc-card-inner { animation: pfccGentleFloat 4.8s ease-in-out infinite; will-change: translate; }
+.pfcc-card:nth-child(2n) .pfcc-card-inner { animation-delay: -1.2s; }
+.pfcc-card:nth-child(3n) .pfcc-card-inner { animation-delay: -2.4s; }
+.pfcc-card:nth-child(4n) .pfcc-card-inner { animation-delay: -3.1s; }
+/* El monograma siempre sirve de base; el escudo externo se dibuja encima si carga correctamente. */
+.pfcc-logo { position:relative; isolation:isolate; }
+.pfcc-logo .pfcc-monogram { display:grid !important; position:absolute; inset:50% auto auto 50%; transform:translate(-50%,-50%); z-index:0; }
+.pfcc-logo img { position:relative; z-index:1; width:100%; height:100%; max-width:100%; max-height:100%; object-fit:contain; filter:drop-shadow(0 0 5px rgba(90,255,200,.25)) !important; opacity:1 !important; }
+.pfcc-logo img[style*="display: none"] { display:none !important; }
+@media(prefers-reduced-motion:reduce){.pfcc-card .pfcc-card-inner{animation:none!important}}
+</style>
+
+<script id="pf-crystal-carousel-js">
+(()=>{
+ const select=document.getElementById('select-liga'),track=document.getElementById('pfcc-track'),stage=document.getElementById('pfcc-stage');
+ if(!select||!track||!stage)return;
+ const leagues=[
+ {id:'premier',name:'PREMIER LEAGUE',country:'INGLATERRA',flag:'🏴',mark:'PL',logo:'https://media.api-sports.io/football/leagues/39.png',c1:'#7b2cbf',c2:'#160b2d'},
+ {id:'laliga',name:'LALIGA',country:'ESPAÑA',flag:'🇪🇸',mark:'L',logo:'https://media.api-sports.io/football/leagues/140.png',c1:'#ff6b35',c2:'#8d1648'},
+ {id:'seriea',name:'SERIE A',country:'ITALIA',flag:'🇮🇹',mark:'A',logo:'https://media.api-sports.io/football/leagues/135.png',c1:'#1688ff',c2:'#071c55'},
+ {id:'bundesliga',name:'BUNDESLIGA',country:'ALEMANIA',flag:'🇩🇪',mark:'BL',logo:'https://media.api-sports.io/football/leagues/78.png',c1:'#e32636',c2:'#6e0712'},
+ {id:'ligamx',name:'LIGA MX',country:'MÉXICO',flag:'🇲🇽',mark:'MX',logo:'https://media.api-sports.io/football/leagues/262.png',c1:'#00a878',c2:'#063b2d'},
+ {id:'argentina',name:'LIGA PROFESIONAL',country:'ARGENTINA',flag:'🇦🇷',mark:'LPF',logo:'https://media.api-sports.io/football/leagues/128.png',c1:'#75c9ef',c2:'#123b70'},
+ {id:'mls',name:'MLS',country:'ESTADOS UNIDOS',flag:'🇺🇸',mark:'MLS',logo:'https://media.api-sports.io/football/leagues/253.png',c1:'#d9233f',c2:'#092d58'}
+ ];
+ let current=Math.max(0,leagues.findIndex(l=>l.id===select.value)),downX=null;
+ function leagueBadge(l){
+   const fallback=`<svg class="pfcc-league-svg" viewBox="0 0 100 100" role="img" aria-label="${l.name}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-${l.id}" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff" stop-opacity=".95"/><stop offset=".35" stop-color="${l.c1}"/><stop offset="1" stop-color="${l.c2}"/></linearGradient></defs><path d="M50 7 82 25 82 63 50 86 18 63 18 25Z" fill="url(#g-${l.id})" stroke="#fff" stroke-width="2"/><path d="M28 31 43 22 43 58 28 67Z" fill="#fff" opacity=".95"/><path d="M57 22 72 31 72 67 57 58Z" fill="${l.c2}"/><path d="M46 24H54V70H46Z" fill="#fff"/><text x="50" y="80" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="900" fill="#fff">${l.mark}</text></svg>`;
+   return `<img class="pfcc-league-img" src="${l.logo}" alt="Escudo ${l.name}" loading="eager" decoding="async" onerror="this.outerHTML=this.dataset.fallback" data-fallback='${fallback.replace(/'/g,"&#39;")}' />`;
+ }
+    track.innerHTML = leagues.map((l, i) => `<button type="button" class="pfcc-card" data-index="${i}" aria-label="Seleccionar ${l.name}"><span class="pfcc-side"></span><span class="pfcc-card-inner"><span class="pfcc-status"> ℙ </span><span class="pfcc-logo">${leagueBadge(l)}</span><span><span class="pfcc-name">${l.name}</span><span class="pfcc-country">${l.flag} &nbsp; ${l.country}</span></span></span></button>`).join('');
+ const cards=[...track.querySelectorAll('.pfcc-card')];
+ function render(){cards.forEach((card,i)=>{let d=i-current;if(d>3)d-=7;if(d< -3)d+=7;const dist=Math.abs(d);const x=d*99;const z=dist===0?40:-48*dist;const rot=d===0?0:(d<0?34:-34);const scale=dist===0?1.06:Math.max(.68,1-dist*.13);const y=dist===0?-1:dist*3;card.style.transform=`translate3d(calc(-50% + ${x}px),${y}px,${z}px) rotateY(${rot}deg) scale(${scale})`;card.style.opacity=dist>2?'0':String(dist===0?1:dist===1?.76:.38);card.style.filter=dist===0?'brightness(1.12) saturate(1.08)':`brightness(${dist===1?.72:.48}) saturate(.82)`;card.style.zIndex=String(10-dist);card.classList.toggle('active',dist===0);card.setAttribute('aria-pressed',String(i===current));card.style.pointerEvents=dist>2?'none':'auto';});}
+ function selectIndex(i,notify=true,manual=true){current=(i+7)%7;const item=leagues[current];if(select.value!==item.id){select.value=item.id;if(notify)select.dispatchEvent(new Event('change',{bubbles:true}));}render();}
+ cards.forEach((c,i)=>c.addEventListener('click',()=>selectIndex(i,true,true)));
+ document.getElementById('pfcc-prev').addEventListener('click',()=>selectIndex(current-1,true,true));document.getElementById('pfcc-next').addEventListener('click',()=>selectIndex(current+1,true,true));
+ stage.addEventListener('pointerdown',e=>{downX=e.clientX;});stage.addEventListener('pointerup',e=>{if(downX===null)return;const dx=e.clientX-downX;if(Math.abs(dx)>35)selectIndex(current+(dx<0?1:-1),true,true);downX=null;});
+ select.addEventListener('change',()=>{const idx=leagues.findIndex(l=>l.id===select.value);if(idx>=0&&idx!==current){current=idx;render();}});
+ // Sin avance automático: el usuario controla la selección. La flotación sutil mantiene viva la escena.
+ render();
+})();
+</script>
+
+<style id="pfcc-centering-logo-visibility-fix">
+/* Corrección de simetría y legibilidad de escudos */
+#pf-crystal-carousel{overflow:hidden}
+#pfcc-stage{overflow:hidden;perspective:1200px;perspective-origin:50% 46%}
+#pfcc-track{left:0;right:0;width:100%;height:100%;transform-style:preserve-3d}
+.pfcc-card{left:50%!important;top:47%!important;width:132px!important;height:166px!important;margin:-83px 0 0 -66px!important;transform-origin:center center;}
+.pfcc-logo{width:82px!important;height:76px!important;min-width:82px;min-height:76px;display:flex!important;align-items:center;justify-content:center;position:relative;isolation:isolate;overflow:visible;}
+.pfcc-logo img{display:block!important;position:relative;z-index:2;width:100%!important;height:100%!important;object-fit:contain;filter:brightness(1.35) saturate(1.45) contrast(1.12) drop-shadow(0 0 7px rgba(85,255,190,.42))!important;opacity:1!important;}
+.pfcc-logo img[style*="display: none"]{display:none!important}
+.pfcc-monogram{position:absolute!important;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1;width:68px!important;height:68px!important;display:grid!important;place-items:center;border-radius:17px!important;font-size:24px!important;color:#fff!important;text-shadow:0 2px 3px #001!important;background:linear-gradient(145deg,#2a7158,#09291e 62%,#06130e)!important;border:2px solid rgba(211,255,238,.9)!important;box-shadow:inset 0 2px 5px rgba(255,255,255,.35),0 0 0 1px rgba(0,255,160,.35),0 0 18px rgba(0,255,160,.2)!important;}
+.pfcc-card.active .pfcc-logo img{filter:brightness(1.5) saturate(1.5) contrast(1.16) drop-shadow(0 0 9px rgba(100,255,204,.62))!important}
+.pfcc-card.active .pfcc-monogram{background:linear-gradient(145deg,#319b75,#0b3c2a 60%,#08180f)!important;box-shadow:inset 0 2px 5px rgba(255,255,255,.42),0 0 22px rgba(0,255,160,.35)!important}
+@media(max-width:560px){.pfcc-stage{height:218px!important}.pfcc-card{width:112px!important;height:148px!important;margin:-74px 0 0 -56px!important}.pfcc-logo{width:70px!important;height:66px!important;min-width:70px;min-height:66px}.pfcc-monogram{width:56px!important;height:56px!important;font-size:20px!important}.pfcc-name{font-size:9px!important}.pfcc-country{font-size:8px!important}}
+</style>
+
+
+<style id="pfcc-guaranteed-inline-league-badges">
+.pfcc-logo{display:flex!important;align-items:center!important;justify-content:center!important;overflow:visible!important;width:78px!important;height:70px!important;min-width:78px!important;min-height:70px!important;position:relative!important;filter:drop-shadow(0 4px 6px rgba(0,0,0,.7))!important}
+.pfcc-logo .pfcc-league-svg{display:block!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;overflow:visible!important;opacity:1!important;visibility:visible!important}
+.pfcc-logo .pfcc-league-img{display:block!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;opacity:1!important;visibility:visible!important;filter:drop-shadow(0 2px 5px rgba(0,0,0,.6))!important}
+.pfcc-logo .pfcc-monogram{display:none!important}.pfcc-logo .pfcc-league-img{display:block!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;opacity:1!important;visibility:visible!important}
+.pfcc-card.active .pfcc-logo{filter:drop-shadow(0 0 8px rgba(80,255,190,.7)) drop-shadow(0 4px 7px rgba(0,0,0,.8))!important}
+.pfcc-card.active .pfcc-league-svg{transform:scale(1.06);transform-origin:center;transition:transform .25s ease}
+.pfcc-name{display:block!important;max-width:100%;overflow-wrap:anywhere}
+.pfcc-country{display:block!important;max-width:100%;overflow-wrap:anywhere}
+@media(max-width:560px){.pfcc-logo{width:64px!important;height:58px!important;min-width:64px!important;min-height:58px!important}}
+</style>
+
+
+
+<style id="pfcc-carousel-interaction-and-country-smoke">
+#pf-crystal-carousel .pfcc-stage{pointer-events:auto!important;touch-action:pan-y!important}
+#pf-crystal-carousel .pfcc-card{pointer-events:auto!important;cursor:pointer!important}
+#pf-crystal-carousel .pfcc-stage:before,#pf-crystal-carousel .pfcc-stage:after{pointer-events:none!important}
+#pf-crystal-carousel .pfcc-controls{display:flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;z-index:30!important}
+#pf-crystal-carousel .pfcc-controls button{pointer-events:auto!important;position:relative!important;z-index:31!important;cursor:pointer!important}
+#pf-crystal-carousel{margin-top:3px!important;margin-bottom:7px!important;padding:8px 8px 7px!important}
+#pf-crystal-carousel .pfcc-heading{margin:0 0 2px!important;font-size:10px!important;letter-spacing:1.2px!important}
+#pf-crystal-carousel .pfcc-subheading{margin:0!important;font-size:7px!important}
+#pf-crystal-carousel .pfcc-stage{height:193px!important;min-height:193px!important;max-height:193px!important}
+#pf-crystal-carousel .pfcc-card{height:145px!important;width:132px!important;margin:-72px 0 0 -66px!important}
+#pf-crystal-carousel .pfcc-card .pfcc-card-inner{isolation:isolate}
+#pf-crystal-carousel .pfcc-card .pfcc-card-inner:after{
+ content:"";position:absolute;z-index:1;left:18%;right:18%;bottom:7px;height:48%;opacity:0;pointer-events:none;filter:blur(7px);
+ background:linear-gradient(to top,var(--pf-smoke-a,rgba(0,255,160,.32)),var(--pf-smoke-b,rgba(255,255,255,.16)) 48%,transparent);
+ transform:scaleX(.65);transform-origin:bottom;
+}
+#pf-crystal-carousel .pfcc-card.active .pfcc-card-inner:after,#pf-crystal-carousel .pfcc-card[aria-current="true"] .pfcc-card-inner:after{opacity:.68;animation:pfccSmokeRise 2.8s ease-in-out infinite}
+@keyframes pfccSmokeRise{0%{transform:translateY(7px) scaleX(.55);opacity:.16;filter:blur(9px)}50%{transform:translateY(-5px) scaleX(1);opacity:.58;filter:blur(7px)}100%{transform:translateY(-13px) scaleX(.72);opacity:.05;filter:blur(11px)}}
+#pf-crystal-carousel .pfcc-card[data-league*="mx"]{--pf-smoke-a:rgba(0,170,85,.42);--pf-smoke-b:rgba(255,255,255,.25)}
+#pf-crystal-carousel .pfcc-card[data-league*="argentina"]{--pf-smoke-a:rgba(117,205,255,.42);--pf-smoke-b:rgba(255,255,255,.3)}
+#pf-crystal-carousel .pfcc-card[data-league*="la-liga"],#pf-crystal-carousel .pfcc-card[data-league*="laliga"]{--pf-smoke-a:rgba(220,25,45,.4);--pf-smoke-b:rgba(255,205,40,.3)}
+#pf-crystal-carousel .pfcc-card[data-league*="bundesliga"]{--pf-smoke-a:rgba(225,25,35,.42);--pf-smoke-b:rgba(255,210,35,.28)}
+#pf-crystal-carousel .pfcc-card[data-league*="serie-a"],#pf-crystal-carousel .pfcc-card[data-league*="seriea"]{--pf-smoke-a:rgba(0,155,85,.42);--pf-smoke-b:rgba(255,255,255,.27)}
+#pf-crystal-carousel .pfcc-card[data-league*="premier"]{--pf-smoke-a:rgba(225,40,65,.38);--pf-smoke-b:rgba(255,255,255,.26)}
+#pf-crystal-carousel .pfcc-card[data-league*="mls"]{--pf-smoke-a:rgba(225,35,55,.38);--pf-smoke-b:rgba(50,120,255,.28)}
+@media(max-width:560px){
+ #pf-crystal-carousel{padding:7px 5px 6px!important;margin-bottom:6px!important}
+ #pf-crystal-carousel .pfcc-heading{font-size:9px!important;letter-spacing:.8px!important}
+ #pf-crystal-carousel .pfcc-stage{height:158px!important;min-height:158px!important;max-height:158px!important}
+ #pf-crystal-carousel .pfcc-card{height:112px!important;width:86px!important;margin:-56px 0 0 -43px!important}
+}
+</style>
+
 </body>
 </html>
+
+
+<style id="pfcc-final-design-adjustments">
+#pf-crystal-carousel{padding-bottom:0!important}
+.pfcc-stage{height:205px!important;min-height:205px!important;max-height:205px!important;perspective:1100px!important;perspective-origin:50% 43%!important;background:radial-gradient(ellipse at 50% 52%,rgba(3,24,18,.22) 0%,rgba(2,10,9,.64) 58%,rgba(0,0,0,.78) 100%)!important}
+.pfcc-card{height:150px!important;width:136px!important;margin:-75px 0 0 -68px!important;top:47%!important}
+.pfcc-card-inner{padding-top:8px!important;padding-bottom:8px!important}
+.pfcc-logo{margin-bottom:0!important}
+.pfcc-card-inner:after{content:"";display:block;position:absolute;left:50%;top:66%;width:48px;height:7px;transform:translateX(-50%) rotate(-7deg);border-radius:70% 25% 65% 30%;filter:blur(.25px);opacity:.9;pointer-events:none;background:linear-gradient(90deg,var(--paint1),var(--paint2),var(--paint3));box-shadow:0 0 7px var(--paintGlow)}
+.pfcc-card[data-league="ligamx"]{--paint1:#079447;--paint2:#f4f2df;--paint3:#d52c43;--paintGlow:rgba(255,255,255,.2)}
+.pfcc-card[data-league="argentina"]{--paint1:#76d5f7;--paint2:#fffdf3;--paint3:#76d5f7;--paintGlow:rgba(118,213,247,.3)}
+.pfcc-card[data-league="laliga"]{--paint1:#e33137;--paint2:#f5c928;--paint3:#d92930;--paintGlow:rgba(245,201,40,.3)}
+.pfcc-card[data-league="bundesliga"]{--paint1:#111;--paint2:#d92b35;--paint3:#efc52a;--paintGlow:rgba(217,43,53,.3)}
+.pfcc-card[data-league="seriea"]{--paint1:#159b60;--paint2:#f5f4e9;--paint3:#df3442;--paintGlow:rgba(21,155,96,.3)}
+.pfcc-card[data-league="premier"]{--paint1:#f7f5ef;--paint2:#d6293d;--paint3:#f7f5ef;--paintGlow:rgba(214,41,61,.3)}
+.pfcc-card[data-league="mls"]{--paint1:#d72d40;--paint2:#f5f4ee;--paint3:#3864b2;--paintGlow:rgba(56,100,178,.3)}
+.pfcc-card:before{background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(64,255,193,.08) 19%,rgba(3,18,15,.78) 48%,rgba(243,186,47,.12) 82%,rgba(255,255,255,.17))!important;border-color:rgba(190,255,231,.35)!important}
+.pfcc-card.active:before{box-shadow:inset 2px 2px 5px rgba(255,255,255,.2),inset -5px -5px 12px rgba(0,0,0,.6),0 0 0 1px rgba(0,255,160,.4),0 0 24px rgba(0,255,160,.18),0 14px 22px rgba(0,0,0,.72)!important}
+.pfcc-controls{display:none!important;height:0!important;margin:0!important;padding:0!important;overflow:hidden!important}
+.pfcc-stage:before,.pfcc-stage:after{content:"‹";position:absolute;top:28%;bottom:28%;width:30px;z-index:40;display:flex;align-items:center;justify-content:center;border-radius:10px;color:rgba(110,255,205,.92);font:30px/1 Arial,sans-serif;background:linear-gradient(180deg,rgba(0,255,170,.025),rgba(0,255,170,.12),rgba(0,255,170,.025));border:1px solid rgba(0,255,170,.22);box-shadow:inset 0 0 10px rgba(0,255,170,.035);cursor:pointer;touch-action:manipulation}
+.pfcc-stage:before{left:5px}
+.pfcc-stage:after{content:"›";right:5px}
+@media(max-width:560px){.pfcc-stage{height:168px!important;min-height:168px!important;max-height:168px!important}.pfcc-card{height:116px!important;width:88px!important;margin:-58px 0 0 -44px!important}.pfcc-card-inner:after{top:66%;width:35px;height:5px}.pfcc-stage:before,.pfcc-stage:after{width:25px;top:26%;bottom:26%;font-size:26px}.pfcc-stage:before{left:2px}.pfcc-stage:after{right:2px}}
+</style>
+<script id="pfcc-side-controls-functional">
+(function(){
+ const stage=document.querySelector('.pfcc-stage');
+ if(!stage)return;
+ const buttons=document.querySelectorAll('.pfcc-controls button');
+ if(buttons.length<2)return;
+ stage.addEventListener('click',function(e){
+   const r=stage.getBoundingClientRect(),x=e.clientX-r.left;
+   if(x<38)buttons[0].click();
+   else if(x>r.width-38)buttons[1].click();
+ });
+})();
+</script>
+
