@@ -1281,6 +1281,11 @@
 }
 </style>
 
+
+<style id="predadiction-carousel-admin-style">
+#predadiction-carousel-admin{border:1px solid rgba(220,180,80,.45);border-radius:10px;padding:12px;margin:12px 0 16px;background:linear-gradient(145deg,rgba(212,175,55,.08),rgba(0,0,0,.18))}#predadiction-carousel-admin h5{color:var(--gold);font:700 12px 'Orbitron',sans-serif;margin:0 0 7px}#predadiction-carousel-admin p{font-size:11px;color:rgba(255,255,255,.72);margin:0 0 10px}#predadiction-carousel-admin .pc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}#predadiction-carousel-admin .form-group{min-width:0;margin-bottom:8px}#predadiction-carousel-admin label{display:block;font-size:10px;color:#d7c58b;margin-bottom:4px}#predadiction-carousel-admin input,#predadiction-carousel-admin select{width:100%;box-sizing:border-box;min-width:0}#predadiction-carousel-admin .pc-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:7px}#predadiction-carousel-admin .pc-actions button{flex:1;min-width:150px}#pc-admin-status{font-size:11px;color:#e8cf7a;margin-top:8px;white-space:pre-wrap}#pc-admin-list{display:grid;gap:5px;margin-top:9px}#pc-admin-list .pc-row{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:7px 9px;border:1px solid #3a453e;border-radius:7px;font-size:10px;color:#eee}#pc-admin-list .pc-row small{color:#d9c47d}@media(max-width:480px){#predadiction-carousel-admin .pc-grid{grid-template-columns:1fr}}
+</style>
+
 </head>
 <body>
 
@@ -1581,6 +1586,25 @@
             </div>
 
 
+
+            <section id="predadiction-carousel-admin">
+                <h5>⚽ CARRUSEL PORY FUT · ADMINISTRACIÓN</h5>
+                <p>Publica hasta 4 partidos en el carrusel compartido de Pory Fut. Al agregar el quinto, se reemplaza el más antiguo. Los cambios se guardan en Supabase para que se vean en otros dispositivos.</p>
+                <div class="pc-grid">
+                    <div class="form-group"><label for="pc-league">Liga</label><select id="pc-league" onchange="pcLoadTeams()"><option value="premier">Premier League</option><option value="laliga">LaLiga</option><option value="seriea">Serie A</option><option value="bundesliga">Bundesliga</option><option value="ligamx">Liga MX</option><option value="argentina">Liga Profesional Argentina</option><option value="mls">MLS</option></select></div>
+                    <div class="form-group"><label for="pc-date">Fecha / texto breve (opcional)</label><input id="pc-date" type="text" placeholder="Ej. DOMINGO · 19:00"></div>
+                    <div class="form-group"><label for="pc-home">Club local</label><select id="pc-home"><option value="">Selecciona club local…</option></select></div>
+                    <div class="form-group"><label for="pc-away">Club visitante</label><select id="pc-away"><option value="">Selecciona club visitante…</option></select></div>
+                    <div class="form-group"><label for="pc-home-logo">URL del escudo local (opcional)</label><input id="pc-home-logo" type="url" placeholder="https://…"></div>
+                    <div class="form-group"><label for="pc-away-logo">URL del escudo visitante (opcional)</label><input id="pc-away-logo" type="url" placeholder="https://…"></div>
+                    <div class="form-group"><label for="pc-p1">Probabilidad local (%)</label><input id="pc-p1" type="number" min="0" max="100" step="0.1" placeholder="45"></div>
+                    <div class="form-group"><label for="pc-px">Probabilidad empate (%)</label><input id="pc-px" type="number" min="0" max="100" step="0.1" placeholder="27"></div>
+                    <div class="form-group"><label for="pc-p2">Probabilidad visitante (%)</label><input id="pc-p2" type="number" min="0" max="100" step="0.1" placeholder="28"></div>
+                </div>
+                <div class="pc-actions"><button type="button" class="btn-crystal-3d" id="pc-add-btn" onclick="pcAddMatch()">＋ AGREGAR AL CARRUSEL</button><button type="button" class="btn-crystal-3d" onclick="pcRefreshMatches()">↻ ACTUALIZAR LISTA</button></div>
+                <div id="pc-admin-status" role="status" aria-live="polite">Necesitas iniciar sesión como administrador para publicar.</div>
+                <div id="pc-admin-list"></div>
+            </section>
 
             <!-- Selector de Liga y Equipo para el Admin -->
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
@@ -3064,5 +3088,22 @@ function aplicarEstiloNeonDinamico(elementId, probabilidad) {
                                                       setInterval(mostrarNotificacion, 18000);
                                                     })();
         </script>
+<script id="predadiction-carousel-admin-logic">
+(function(){
+ const $=id=>document.getElementById(id);
+ const table='poryfut_featured_matches';
+ const safe=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ function status(msg,ok=false){const el=$('pc-admin-status');if(el){el.textContent=msg;el.style.color=ok?'#9cffb1':'#e8cf7a'}}
+ function teamMap(){return (typeof BASE_DATOS!=='undefined'&&BASE_DATOS[$('pc-league')?.value])||{}}
+ window.pcLoadTeams=function(){const data=teamMap();const names=Object.keys(data).sort((a,b)=>a.localeCompare(b));['pc-home','pc-away'].forEach(id=>{const el=$(id);if(!el)return;const previous=el.value;el.innerHTML='<option value="">Selecciona club…</option>'+names.map(n=>`<option value="${safe(n)}">${safe(n)}</option>`).join('');if(names.includes(previous))el.value=previous;});};
+ async function clientOrWarn(){if(typeof supabaseClient==='undefined'||!supabaseClient){status('No hay conexión con Supabase.');return null;}const session=await requireAdmin();if(!session){status('Inicia sesión como administrador para gestionar el carrusel.');return null;}return supabaseClient;}
+ window.pcRefreshMatches=async function(){const client=await clientOrWarn();if(!client)return;status('Consultando carrusel…');try{const {data,error}=await client.from(table).select('id,league,date,home,away,home_logo,away_logo,p_home,p_draw,p_away,sort_order,active,updated_at').eq('active',true).order('sort_order',{ascending:true});if(error)throw error;const list=$('pc-admin-list');if(!list)return;const rows=data||[];list.innerHTML=rows.length?rows.map((m,i)=>`<div class="pc-row"><span><small>#${i+1} · ${safe(m.league||'Fútbol')}</small><br><b>${safe(m.home)}</b> vs <b>${safe(m.away)}</b><br><small>1 ${Number(m.p_home)}% · X ${Number(m.p_draw)}% · 2 ${Number(m.p_away)}%</small></span><button type="button" class="btn-crystal-3d" data-pc-delete="${safe(m.id)}" style="padding:5px 8px;font-size:10px">Quitar</button></div>`).join(''):'<div class="pc-row">El carrusel aún está vacío.</div>';list.querySelectorAll('[data-pc-delete]').forEach(btn=>btn.addEventListener('click',()=>pcDeleteMatch(btn.getAttribute('data-pc-delete'))));status(`Carrusel sincronizado: ${rows.length}/4 partidos.`,true);}catch(e){console.error(e);status('No se pudo leer el carrusel: '+(e.message||e));}};
+ window.pcAddMatch=async function(){const home=$('pc-home').value,away=$('pc-away').value;const p1=$('pc-p1').value,px=$('pc-px').value,p2=$('pc-p2').value;if(!home||!away){status('Selecciona los dos clubes.');return;}if(home===away){status('Elige dos clubes diferentes.');return;}if([p1,px,p2].some(v=>v===''||!Number.isFinite(Number(v))||Number(v)<0||Number(v)>100)){status('Captura las tres probabilidades entre 0 y 100.');return;}if(Math.abs(Number(p1)+Number(px)+Number(p2)-100)>1){status('Las probabilidades deben sumar 100% (se permite una diferencia máxima de 1 punto por redondeo).');return;}const client=await clientOrWarn();if(!client)return;const button=$('pc-add-btn');if(button){button.disabled=true;button.textContent='Publicando…';}try{const {data:rows,error:readError}=await client.from(table).select('id,sort_order,updated_at').eq('active',true).order('sort_order',{ascending:true});if(readError)throw readError;const matches=rows||[];let sortOrder;if(matches.length<4){const used=new Set(matches.map(x=>Number(x.sort_order)));sortOrder=[1,2,3,4].find(n=>!used.has(n))||matches.length+1;}else{const oldest=[...matches].sort((a,b)=>Number(a.sort_order)-Number(b.sort_order))[0];const {error:deactivateError}=await client.from(table).update({active:false,updated_at:new Date().toISOString()}).eq('id',oldest.id);if(deactivateError)throw deactivateError;sortOrder=4;const {data:activeRows,error:reorderError}=await client.from(table).select('id,sort_order').eq('active',true).order('sort_order',{ascending:true});if(reorderError)throw reorderError;for(let i=0;i<(activeRows||[]).length;i++){const {error}=await client.from(table).update({sort_order:i+1}).eq('id',activeRows[i].id);if(error)throw error;}}
+ const payload={league:$('pc-league').selectedOptions[0]?.textContent||$('pc-league').value,date:$('pc-date').value.trim()||'PRÓXIMO PARTIDO',home,away,home_logo:$('pc-home-logo').value.trim()||null,away_logo:$('pc-away-logo').value.trim()||null,p_home:Number(p1),p_draw:Number(px),p_away:Number(p2),sort_order:sortOrder,active:true,updated_at:new Date().toISOString()};const {error}=await client.from(table).insert(payload);if(error)throw error;status(matches.length>=4?'¡Publicado! El partido más antiguo fue reemplazado.':'¡Partido publicado en el carrusel!',true);['pc-date','pc-home-logo','pc-away-logo','pc-p1','pc-px','pc-p2'].forEach(id=>$(id).value='');await pcRefreshMatches();}catch(e){console.error(e);status('No se pudo publicar. '+(e.message||e)+' Revisa que existan las columnas home_logo y away_logo en Supabase.');}finally{if(button){button.disabled=false;button.textContent='＋ AGREGAR AL CARRUSEL';}}};
+ window.pcDeleteMatch=async function(id){const client=await clientOrWarn();if(!client)return;try{const {error}=await client.from(table).update({active:false,updated_at:new Date().toISOString()}).eq('id',id);if(error)throw error;await pcRefreshMatches();}catch(e){status('No se pudo quitar el partido: '+(e.message||e));}};
+ document.addEventListener('DOMContentLoaded',()=>{pcLoadTeams();});
+})();
+</script>
+
 </body>
 </html>
