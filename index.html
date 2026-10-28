@@ -3425,6 +3425,130 @@ window.iniciarSesion = async function() {
     window.location.reload();
   };
 </script>
+<!-- PORY VIP: acceso por afiliación o suscripción directa -->
+<style id="pory-vip-access-styles">
+#pory-vip-section{--vip-gold:#e4c46c;--vip-green:#00f0a0;position:relative;isolation:isolate;width:min(1120px,calc(100% - 28px));margin:26px auto 34px;color:#f4fff9;font-family:'Rajdhani',sans-serif}
+#pory-vip-section *{box-sizing:border-box}
+#pory-vip-section .pv-shell{position:relative;overflow:hidden;border:1px solid rgba(228,196,108,.42);border-radius:22px;padding:clamp(16px,3vw,30px);background:linear-gradient(135deg,rgba(5,23,18,.93),rgba(8,15,19,.91) 60%,rgba(31,25,12,.86));box-shadow:0 18px 55px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.08)}
+#pory-vip-section .pv-shell:before{content:"";position:absolute;inset:-40% -15% auto;height:260px;pointer-events:none;background:radial-gradient(ellipse,rgba(0,255,164,.10),transparent 66%)}
+#pory-vip-section .pv-head{position:relative;text-align:center;margin:0 auto 22px;max-width:760px}
+#pory-vip-section .pv-kicker{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(228,196,108,.42);border-radius:99px;padding:5px 12px;color:var(--vip-gold);font-size:11px;letter-spacing:2px;font-weight:700;text-transform:uppercase;background:rgba(228,196,108,.07)}
+#pory-vip-section h2{font-family:'Orbitron',sans-serif;font-size:clamp(21px,4vw,34px);line-height:1.2;margin:13px 0 9px;color:#fff;text-shadow:0 0 22px rgba(0,255,160,.16)}
+#pory-vip-section .pv-head p{font-size:17px;line-height:1.45;color:rgba(235,255,247,.76);margin:0}
+#pory-vip-section .pv-paths{position:relative;display:grid;grid-template-columns:1.12fr .88fr;gap:15px;align-items:stretch}
+#pory-vip-section .pv-card{position:relative;display:flex;flex-direction:column;gap:12px;min-width:0;padding:clamp(16px,2.4vw,24px);border-radius:17px;background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));border:1px solid rgba(215,255,240,.15);box-shadow:inset 0 1px rgba(255,255,255,.07)}
+#pory-vip-section .pv-card.pv-featured{border-color:rgba(0,255,160,.52);background:linear-gradient(145deg,rgba(0,255,160,.095),rgba(255,255,255,.025) 55%,rgba(228,196,108,.06));box-shadow:0 0 30px rgba(0,255,160,.07),inset 0 1px rgba(255,255,255,.09)}
+#pory-vip-section .pv-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--vip-green);font-weight:700}
+#pory-vip-section .pv-card h3{font-family:'Orbitron',sans-serif;font-size:clamp(16px,2.5vw,21px);margin:0;line-height:1.3;color:#fff}
+#pory-vip-section .pv-card p{margin:0;color:rgba(235,255,247,.75);font-size:16px;line-height:1.45}
+#pory-vip-section .pv-list{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+#pory-vip-section .pv-list li{font-size:15px;color:rgba(245,255,250,.88);display:flex;gap:8px;align-items:flex-start}
+#pory-vip-section .pv-list li:before{content:'✓';color:var(--vip-green);font-weight:900}
+#pory-vip-section .pv-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:45px;margin-top:auto;padding:12px 14px;border-radius:11px;text-align:center;text-decoration:none!important;font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;letter-spacing:.3px;color:#07130e!important;background:linear-gradient(100deg,#7dffc9,#00e99a);border:1px solid rgba(190,255,226,.55);box-shadow:0 7px 22px rgba(0,255,160,.15);transition:transform .2s,filter .2s}
+#pory-vip-section .pv-btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+#pory-vip-section .pv-btn.pv-secondary{color:#f5e7b6!important;background:rgba(228,196,108,.08);border-color:rgba(228,196,108,.42);box-shadow:none}
+#pory-vip-section .pv-sponsors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#pory-vip-section .pv-sponsor{display:flex;justify-content:center;align-items:center;min-height:40px;padding:8px;border-radius:9px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.23);color:#fff!important;text-decoration:none!important;font-weight:700;font-size:14px}
+#pory-vip-section .pv-sponsor:hover{border-color:rgba(228,196,108,.7);background:rgba(228,196,108,.08)}
+#pory-vip-section .pv-payment-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#pory-vip-section .pv-copy-btn{flex:0 0 auto;border:1px solid rgba(255,255,255,.13);border-radius:7px;background:rgba(255,255,255,.08);color:#f3fff9;padding:7px 11px;font:700 12px Rajdhani,sans-serif;cursor:pointer}
+#pory-vip-section .pv-copy-btn:hover{background:rgba(255,255,255,.15)}
+#pory-vip-section .pv-copy-status{min-height:15px;font-size:11px;color:var(--vip-green)}
+#pory-vip-section .pv-price{display:flex;align-items:baseline;gap:7px;margin:2px 0}
+#pory-vip-section .pv-price strong{font-family:'Orbitron',sans-serif;font-size:clamp(27px,4vw,36px);color:var(--vip-gold)}
+#pory-vip-section .pv-price span{font-size:14px;color:rgba(245,255,250,.62)}
+#pory-vip-section .pv-payment-number{display:grid;gap:5px;padding:12px;border:1px dashed rgba(228,196,108,.42);border-radius:11px;background:rgba(0,0,0,.22)}
+#pory-vip-section .pv-payment-number span{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--vip-gold)}
+#pory-vip-section .pv-payment-number strong{font-family:'Orbitron',sans-serif;font-size:clamp(15px,2.8vw,20px);letter-spacing:.7px;overflow-wrap:anywhere;color:#fff}
+#pory-vip-section .pv-payment-number small{font-size:13px;line-height:1.4;color:rgba(235,255,247,.68)}
+#pory-vip-section .pv-disclaimer{position:relative;text-align:center;margin:17px auto 0;max-width:850px;font-size:12px;line-height:1.45;color:rgba(235,255,247,.55)}
+#pory-vip-section .pv-preview{margin-top:20px;position:relative}
+#pory-vip-section .pv-preview-title{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:1.2px;color:var(--vip-gold);text-align:center;margin:0 0 12px}
+#pory-vip-section .pv-triples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+#pory-vip-section .pv-triple{border:1px solid rgba(255,255,255,.13);border-radius:13px;padding:14px;background:rgba(0,0,0,.24);min-width:0}
+#pory-vip-section .pv-triple h4{margin:0 0 8px;font-family:'Orbitron',sans-serif;font-size:12px;color:#f6e5ac}
+#pory-vip-section .pv-triple .pv-locked{font-size:13px;line-height:1.4;color:rgba(235,255,247,.58);display:flex;align-items:center;gap:7px}
+#pory-vip-section .pv-triple .pv-locked span{font-size:20px}
+@media(max-width:700px){#pory-vip-section{width:calc(100% - 18px);margin:18px auto 24px}#pory-vip-section .pv-paths{grid-template-columns:1fr}#pory-vip-section .pv-triples{grid-template-columns:1fr}#pory-vip-section .pv-triple{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px}#pory-vip-section .pv-triple h4{margin:0;white-space:nowrap}#pory-vip-section .pv-triple .pv-locked{justify-content:flex-end;text-align:right}}
+</style>
+<section id="pory-vip-section" aria-labelledby="pory-vip-title">
+ <div class="pv-shell">
+  <header class="pv-head">
+   <span class="pv-kicker">✦ PORY FUT · ACCESO VIP ✦</span>
+   <h2 id="pory-vip-title">LAS 3 JUGADAS PORY VIP</h2>
+   <p>Nueve selecciones analizadas por nuestro modelo. Elige cómo quieres acceder.</p>
+  </header>
+  <div class="pv-paths">
+   <article class="pv-card pv-featured">
+    <span class="pv-label">✦ Opción recomendada</span>
+    <h3>Acceso por afiliación</h3>
+    <p>Elige uno de los patrocinadores disponibles y realiza tu registro en su plataforma. Después, envía por Telegram una captura que permita verificar el registro para solicitar tu contraseña VIP. Oculta contraseñas, datos bancarios y cualquier información sensible.</p>
+    <div class="pv-sponsors">
+     <a class="pv-sponsor" href="https://track.afiliapub.com/click?o=38&amp;a=550221039" target="_blank" rel="sponsored noopener noreferrer">Caliente</a>
+     <a class="pv-sponsor" href="https://reffpa.com/L?tag=d_6131710m_97c_&amp;site=6131710&amp;ad=97" target="_blank" rel="sponsored noopener noreferrer">1xBet</a>
+     <a class="pv-sponsor" href="https://bdeal.io/Betsson/163601/1" target="_blank" rel="sponsored noopener noreferrer">Betsson</a>
+    </div>
+    <ul class="pv-list">
+     <li>Sin cuota de suscripción directa, si cumples las condiciones del patrocinador.</li>
+     <li>Verificación manual del acceso por Telegram.</li>
+    </ul>
+    <a class="pv-btn" href="https://t.me/+-J76sRZ5_stjMjkx" target="_blank" rel="noopener noreferrer">ENVIAR CAPTURA Y SOLICITAR CONTRASEÑA ↗</a>
+   </article>
+   <article class="pv-card">
+    <span class="pv-label">Acceso alternativo</span>
+    <h3>Suscripción directa</h3>
+    <div class="pv-price"><strong>$39 MXN</strong><span>/ mes</span></div>
+    <p>¿Prefieres no utilizar enlaces de patrocinadores? Paga $39 MXN por el mes y envía por Telegram la captura del comprobante para que revisemos el pago y te demos la contraseña VIP.</p>
+    <div class="pv-payment-number" role="group" aria-label="Datos para pago directo"><div class="pv-payment-row"><div><span>Tarjeta para pago directo</span><strong id="pv-payment-card-number">5579-1003-2818-2264</strong></div><button class="pv-copy-btn" id="pv-copy-payment-card" type="button">Copiar</button></div><small>Importe: $39 MXN por mes. Después del pago, envía el comprobante por Telegram para validar y solicitar tu contraseña.</small><small class="pv-copy-status" id="pv-copy-status" aria-live="polite"></small></div>
+    <ul class="pv-list">
+     <li>No necesitas registrarte mediante enlaces de afiliación.</li>
+     <li>El acceso se entrega después de revisar el comprobante.</li>
+    </ul>
+    <a class="pv-btn pv-secondary" href="https://t.me/+-J76sRZ5_stjMjkx" target="_blank" rel="noopener noreferrer">ENVIAR COMPROBANTE DE PAGO ↗</a>
+   </article>
+  </div>
+  <div class="pv-preview">
+   <h3 class="pv-preview-title">CONTENIDO VIP · 3 COMBINADAS · 9 SELECCIONES</h3>
+   <div class="pv-triples">
+    <article class="pv-triple"><h4>COMBINADA 01</h4><div class="pv-locked"><span>🔒</span> 3 selecciones · porcentajes del modelo</div></article>
+    <article class="pv-triple"><h4>COMBINADA 02</h4><div class="pv-locked"><span>🔒</span> 3 selecciones · porcentajes del modelo</div></article>
+    <article class="pv-triple"><h4>COMBINADA 03</h4><div class="pv-locked"><span>🔒</span> 3 selecciones · porcentajes del modelo</div></article>
+   </div>
+  </div>
+  <p class="pv-disclaimer">Las probabilidades son estimaciones estadísticas, pueden cambiar y no garantizan resultados ni ganancias. Los enlaces son de afiliación y el acceso requiere validación manual. En las capturas oculta contraseñas, CVV, saldos y cualquier dato sensible que no sea necesario. Consulta la edad mínima y las condiciones legales aplicables.</p>
+ </div>
+</section>
+<script>
+(function(){
+  const copyButton = document.getElementById('pv-copy-payment-card');
+  const cardNumber = document.getElementById('pv-payment-card-number');
+  const status = document.getElementById('pv-copy-status');
+  if (!copyButton || !cardNumber || !status) return;
+  copyButton.addEventListener('click', async function(){
+    const value = cardNumber.textContent.trim();
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(value);
+      } else {
+        const field = document.createElement('textarea');
+        field.value = value;
+        field.style.position = 'fixed';
+        field.style.opacity = '0';
+        document.body.appendChild(field);
+        field.select();
+        const copied = document.execCommand('copy');
+        field.remove();
+        if (!copied) throw new Error('copy failed');
+      }
+      status.textContent = 'Número copiado.';
+      copyButton.textContent = 'Copiado ✓';
+      setTimeout(function(){ copyButton.textContent = 'Copiar'; status.textContent = ''; }, 2200);
+    } catch (error) {
+      status.textContent = 'No se pudo copiar; selecciona el número manualmente.';
+    }
+  });
+})();
+</script>
 </body>
 </html>
 
