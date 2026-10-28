@@ -1890,6 +1890,16 @@
 #pory-vip-section .pv-triple .pv-locked{font-size:10px!important}
 #pory-vip-section .pv-triple .pv-locked span{font-size:14px!important}
 #pory-vip-section .pv-disclaimer{font-size:9px!important;line-height:1.25!important;margin:8px auto 0!important}
+
+#pory-vip-section .pv-casino-picker{margin:12px 0 8px;padding:11px;border:1px solid rgba(243,200,94,.23);border-radius:11px;background:rgba(0,0,0,.19)}
+#pory-vip-section .pv-casino-label{display:block;margin:0 0 7px;color:#f3c85e;font-size:9px;font-weight:800;letter-spacing:.08em}
+#pory-vip-section .pv-casino-controls{display:flex;gap:8px;align-items:stretch}
+#pory-vip-section .pv-casino-controls select{flex:1;min-width:0;background:rgba(5,12,15,.92);border:1px solid rgba(255,255,255,.22);border-radius:8px;padding:10px 11px;color:#f6f7f8;font:inherit;font-size:12px;outline:none}
+#pory-vip-section .pv-casino-controls select:focus{border-color:#f3c85e;box-shadow:0 0 0 2px rgba(243,200,94,.12)}
+#pory-vip-section .pv-casino-controls option{background:#11191d;color:#fff}
+#pory-vip-section .pv-casino-go{border:0;border-radius:8px;padding:10px 13px;background:linear-gradient(135deg,#f6d879,#b9892b);color:#17130a;font-size:10px;font-weight:900;cursor:pointer;white-space:nowrap}
+#pory-vip-section .pv-casino-hint{display:block;margin-top:7px;color:#aeb9be;font-size:9px;line-height:1.35}
+@media(max-width:560px){#pory-vip-section .pv-casino-controls{display:grid;grid-template-columns:1fr}#pory-vip-section .pv-casino-go{width:100%;padding:11px}}
 @media(max-width:700px){
  #pory-vip-section{width:calc(100% - 16px)!important;margin:9px auto 11px!important}
  #pory-vip-section .pv-paths{grid-template-columns:1fr!important}
@@ -1912,10 +1922,31 @@
     <span class="pv-label">✦ Opción recomendada</span>
     <h3>Acceso por afiliación</h3>
     <p>Regístrate con un patrocinador y solicita la validación por Telegram.</p>
-    <div class="pv-sponsors">
-     <a class="pv-sponsor" href="https://track.afiliapub.com/click?o=38&amp;a=550221039" target="_blank" rel="sponsored noopener noreferrer">Caliente</a>
-     <a class="pv-sponsor" href="https://reffpa.com/L?tag=d_6131710m_97c_&amp;site=6131710&amp;ad=97" target="_blank" rel="sponsored noopener noreferrer">1xBet</a>
-     <a class="pv-sponsor" href="https://bdeal.io/Betsson/163601/1" target="_blank" rel="sponsored noopener noreferrer">Betsson</a>
+    <div class="pv-casino-picker">
+     <label class="pv-casino-label" for="poryVipCasinoSelect">ELIGE TU CASINO O PATROCINADOR</label>
+     <div class="pv-casino-controls">
+      <select id="poryVipCasinoSelect" aria-label="Seleccionar casino o patrocinador">
+       <option value="">Selecciona un casino…</option>
+       <option value="https://bdeal.io/1xbet/163581/1">1xBet</option>
+       <option value="https://bdeal.io/JuegaEnLinea/163582/1">JuegaEnLínea</option>
+       <option value="https://bdeal.io/Betsson/163601/1">Betsson</option>
+       <option value="https://bdeal.io/sportium/163502/1">Sportium</option>
+       <option value="https://bdeal.io/betway/163504/1">Betway</option>
+       <option value="https://bdeal.io/codere/163500/1">Codere</option>
+       <option value="https://bdeal.io/novibet/163501/1">Novibet</option>
+       <option value="https://bdeal.io/caliente/163499/1">Caliente</option>
+       <option value="https://bdeal.io/Winpot/163583/1">Winpot</option>
+       <option value="https://bdeal.io/stake/163505/1">Stake</option>
+       <option value="https://bdeal.io/winner/163503/1">Winner</option>
+       <option value="https://track.afiliapub.com/click?o=45&amp;a=550221039&amp;link_id=388">Enlace afiliado adicional 1 · marca por confirmar</option>
+       <option value="https://track.afiliapub.com/click?o=93&amp;a=550221039&amp;link_id=796">Enlace afiliado adicional 2 · marca por confirmar</option>
+       <option value="https://track.afiliapub.com/click?o=64&amp;a=550221039&amp;link_id=121">Enlace afiliado adicional 3 · marca por confirmar</option>
+       <option value="https://track.afiliapub.com/click?o=68&amp;a=550221039&amp;link_id=536">Enlace afiliado adicional 4 · marca por confirmar</option>
+       <option value="https://track.afiliapub.com/click?o=86&amp;a=550221039&amp;link_id=596">Enlace afiliado adicional 5 · marca por confirmar</option>
+      </select>
+      <button type="button" class="pv-casino-go" id="poryVipGoCasino">IR AL CASINO ↗</button>
+     </div>
+     <small class="pv-casino-hint">Los enlaces adicionales aparecen con marca por confirmar porque el archivo no identifica a qué casino pertenecen.</small>
     </div>
     <ul class="pv-list">
      <li>Acceso sujeto a verificación manual.</li>
@@ -1947,6 +1978,19 @@
   <p class="pv-disclaimer">Las probabilidades son estimaciones estadísticas, pueden cambiar y no garantizan resultados ni ganancias. Los enlaces son de afiliación y el acceso requiere validación manual. En las capturas oculta contraseñas, CVV, saldos y cualquier dato sensible que no sea necesario. Consulta la edad mínima y las condiciones legales aplicables.</p>
  </div>
 </section>
+<script>
+(function(){
+  const casinoSelect = document.getElementById('poryVipCasinoSelect');
+  const casinoButton = document.getElementById('poryVipGoCasino');
+  if (casinoSelect && casinoButton) {
+    casinoButton.addEventListener('click', function(){
+      const url = casinoSelect.value;
+      if (!url) { casinoSelect.focus(); return; }
+      window.open(url, '_blank', 'noopener,noreferrer');
+    });
+  }
+})();
+</script>
 <script>
 (function(){
   const copyButton = document.getElementById('pv-copy-payment-card');
