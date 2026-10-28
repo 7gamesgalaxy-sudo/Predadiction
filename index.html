@@ -10,14 +10,14 @@
     <style>
         :root {
             --bg-pitch: #06110b;
-            --card-bg: rgba(13, 27, 20, 0.85);
+            --card-bg: rgba(12, 27, 43, 0.82);
             --accent-green: #00ff88;
             --accent-glow: rgba(0, 255, 136, 0.4);
             --gold: #f3ba2f;
             --gold-glow: rgba(243, 186, 47, 0.6);
             --text-main: #ffffff;
             --text-muted: #8ca395;
-            --border: #1b3829;
+            --border: rgba(76, 190, 255, 0.55);
         }
 
         * {
@@ -32,7 +32,7 @@
             /* Estadio nocturno panorámico + red clásica de cuadros grandes integrada al césped.
                Imagen optimizada e incrustada para que el HTML funcione como archivo único. */
             background-image:
-                linear-gradient(180deg, rgba(2, 7, 13, 0.22) 0%, rgba(2, 8, 13, 0.34) 43%, rgba(2, 8, 10, 0.68) 100%),
+                linear-gradient(180deg, rgba(2, 7, 13, 0.42) 0%, rgba(2, 8, 13, 0.52) 43%, rgba(2, 8, 10, 0.78) 100%),
                 radial-gradient(circle at 50% 20%, rgba(243, 186, 47, 0.09) 0%, transparent 42%),
                 linear-gradient(rgba(0, 255, 136, 0.025) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 255, 136, 0.025) 1px, transparent 1px),
@@ -51,12 +51,14 @@
         }
 
         /* En móvil se conserva el estadio completo y se evita que la imagen pese más de lo necesario. */
-        @media (max-width: 640px) {{
-            body {{
+        @media (max-width: 640px) {
+            body {
                 padding: 10px;
-                background-position: center center, center center, left top, left top, center center;
-            }}
-        }}
+                background-position: center center, center center, left top, left top, center top;
+                background-size: cover, 100% 100%, 35px 35px, 35px 35px, 100% auto;
+                background-attachment: scroll, scroll, fixed, fixed, scroll;
+            }
+        }
 
         /* ===== DECORACIÓN VISUAL ADAPTADA: ESCÁNER ===== */
         .scan-line {
@@ -537,7 +539,7 @@
         }
 
         .result-card {
-            background: linear-gradient(145deg, #050f09, #0a1f14);
+            background: linear-gradient(145deg, rgba(15, 48, 73, 0.96), rgba(16, 66, 91, 0.90));
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 10px;
@@ -1607,6 +1609,20 @@
         <!-- PANEL DE ADMINISTRACIÓN OCULTO -->
         <div id="admin-panel" style="display: none; margin-top: 15px; background: rgba(3, 15, 9, 0.95); border: 1px solid var(--gold); padding: 12px; border-radius: 8px;">
             <h4 id="adm-title" style="color: var(--gold); font-family: 'Orbitron', sans-serif; font-size: 13px; margin-bottom: 8px;">⚙️ Adjust Stats & Corners</h4>
+            <!-- VIP ADMIN integrado dentro del panel administrativo existente -->
+            <section id="vip-tips-admin-section" style="margin:10px 0 14px;padding:12px;border:1px solid rgba(83,211,255,.7);border-radius:10px;background:linear-gradient(135deg,rgba(11,39,61,.92),rgba(7,19,32,.9));box-shadow:0 0 18px rgba(0,190,255,.12);">
+                <div style="font-family:'Orbitron',sans-serif;color:#8fe8ff;font-size:12px;font-weight:bold;margin-bottom:8px;">⚽ VIP ADMIN · GESTIÓN DE PRONÓSTICOS</div>
+                <p style="font-size:12px;color:#d4eaf5;margin:0 0 10px;">Agrega pronósticos desde este mismo panel. Todo se guarda como BORRADOR; no se publica automáticamente.</p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:9px;">
+                    <div><label for="vip-tip-type" style="display:block;color:#c7eefa;font-size:12px;margin-bottom:4px;">Tipo de pronóstico</label><select id="vip-tip-type" style="width:100%;padding:10px;border-radius:7px;background:#071827;color:#fff;border:1px solid #3286a7;"><option value="vip">VIP</option><option value="free">GRATIS</option></select></div>
+                    <div><label for="vip-tip-match" style="display:block;color:#c7eefa;font-size:12px;margin-bottom:4px;">Partido</label><input id="vip-tip-match" type="text" placeholder="Ej. América vs Tigres" style="width:100%;padding:10px;border-radius:7px;background:#071827;color:#fff;border:1px solid #3286a7;"></div>
+                    <div><label for="vip-tip-pick" style="display:block;color:#c7eefa;font-size:12px;margin-bottom:4px;">Pronóstico</label><input id="vip-tip-pick" type="text" placeholder="Ej. Más de 1.5 goles" style="width:100%;padding:10px;border-radius:7px;background:#071827;color:#fff;border:1px solid #3286a7;"></div>
+                    <div><label for="vip-tip-odds" style="display:block;color:#c7eefa;font-size:12px;margin-bottom:4px;">Cuota decimal</label><input id="vip-tip-odds" type="number" min="1.01" step="0.01" placeholder="Ej. 1.90" style="width:100%;padding:10px;border-radius:7px;background:#071827;color:#fff;border:1px solid #3286a7;"></div>
+                    <div style="grid-column:1/-1;"><label for="vip-tip-notes" style="display:block;color:#c7eefa;font-size:12px;margin-bottom:4px;">Notas (opcional)</label><textarea id="vip-tip-notes" rows="2" placeholder="Notas internas o análisis breve" style="width:100%;padding:10px;border-radius:7px;background:#071827;color:#fff;border:1px solid #3286a7;resize:vertical;"></textarea></div>
+                </div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"><button type="button" class="btn-crystal-3d" id="vip-tip-save-btn" onclick="guardarBorradorVipTip()" style="background:linear-gradient(135deg,#1b91b6,#12617e);border:1px solid #71e4ff;">💾 GUARDAR BORRADOR</button><button type="button" onclick="limpiarFormularioVipTip()" style="padding:10px 14px;border-radius:7px;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.28);cursor:pointer;">LIMPIAR</button></div>
+                <p id="vip-tip-status" role="status" aria-live="polite" style="margin:9px 0 0;font-size:12px;color:#bfeeff;">Listo para guardar un borrador. Requiere sesión de administrador y políticas RLS correctas.</p>
+            </section>
             <section id="admin-poryfut-publish" style="margin: 10px 0 14px; padding: 12px; border: 1px solid rgba(212,175,55,.55); border-radius: 9px; background: rgba(212,175,55,.06);">
                 <div style="font-family: 'Orbitron', sans-serif; color: var(--gold); font-size: 11px; margin-bottom: 6px;">🔒 PUBLICACIÓN PRIVADA · PORYFUT</div>
                 <p style="font-size: 12px; color: rgba(255,255,255,.78); margin: 0 0 9px;">Esta opción solo aparece dentro del panel de administración. Calcula un pronóstico y publícalo desde aquí.</p>
@@ -3646,5 +3662,50 @@ window.iniciarSesion = async function() {
    else if(x>r.width-38)buttons[1].click();
  });
 })();
+
+async function guardarBorradorVipTip() {
+  const status = document.getElementById('vip-tip-status');
+  const btn = document.getElementById('vip-tip-save-btn');
+  const tipo = document.getElementById('vip-tip-type')?.value;
+  const partido = document.getElementById('vip-tip-match')?.value.trim();
+  const pick = document.getElementById('vip-tip-pick')?.value.trim();
+  const cuotaRaw = document.getElementById('vip-tip-odds')?.value;
+  const notas = document.getElementById('vip-tip-notes')?.value.trim() || null;
+  if (!partido || !pick || !cuotaRaw || !Number.isFinite(Number(cuotaRaw)) || Number(cuotaRaw) <= 1) {
+    status.textContent = 'Completa partido, pronóstico y una cuota decimal mayor que 1.00.';
+    status.style.color = '#ffd37a'; return;
+  }
+  if (!supabaseClient) { status.textContent = 'No se detectó la conexión de Supabase en esta página.'; status.style.color = '#ff9c9c'; return; }
+  btn.disabled = true; status.textContent = 'Verificando sesión y guardando borrador…'; status.style.color = '#bfeeff';
+  try {
+    const { data: sd, error: se } = await supabaseClient.auth.getSession();
+    if (se) throw se;
+    if (!sd?.session) {
+      status.textContent = 'No hay sesión iniciada. Abre la web publicada, inicia sesión con tu cuenta administradora y vuelve a intentarlo.';
+      status.style.color = '#ffd37a'; return;
+    }
+    const user = sd.session.user;
+    if (user?.app_metadata?.role !== 'admin') {
+      status.textContent = 'La sesión no trae el rol admin. Cierra sesión e inicia de nuevo después de asignar el rol en Supabase.';
+      status.style.color = '#ff9c9c'; return;
+    }
+    const payload = { tip_type: tipo, match_name: partido, pick: pick, odds: Number(cuotaRaw), notes: notas, status: 'draft' };
+    const { error } = await supabaseClient.from('pory_vip_tips').insert(payload);
+    if (error) throw error;
+    status.textContent = 'Borrador guardado en Supabase. No se publicó.';
+    status.style.color = '#9cffb1';
+    document.getElementById('vip-tip-match').value = '';
+    document.getElementById('vip-tip-pick').value = '';
+    document.getElementById('vip-tip-odds').value = '';
+    document.getElementById('vip-tip-notes').value = '';
+  } catch (err) {
+    status.textContent = 'No se guardó: ' + (err?.message || 'error de conexión o permisos RLS') + '. No se publicó nada.';
+    status.style.color = '#ff9c9c';
+  } finally { btn.disabled = false; }
+}
+function limpiarFormularioVipTip() {
+  ['vip-tip-match','vip-tip-pick','vip-tip-odds','vip-tip-notes'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  const status = document.getElementById('vip-tip-status'); if (status) { status.textContent = 'Formulario limpio. No se ha guardado ni publicado nada.'; status.style.color = '#bfeeff'; }
+}
 </script>
 
