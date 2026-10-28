@@ -3350,31 +3350,34 @@ function aplicarEstiloNeonDinamico(elementId, probabilidad) {
 
         
 <script>
-  // Inicializamos Supabase con tu proyecto
-  const SUPABASE_URL = 'https://swzkzcolwbqkcpiavae.supabase.co';
-  
-  // ⚠️ Reemplaza este texto por tu Anon Public Key real de Supabase (Project Settings -> API -> anon public)
-  const SUPABASE_ANON_KEY = 'TU_SUPABASE_ANON_KEY'; 
-
-  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  // Evitamos conflictos si ya existe una variable previa
+  if (typeof SUPABASE_URL === 'undefined') {
+    var SUPABASE_URL = 'https://swzkzcolwbqkcpiavae.supabase.co';
+    var SUPABASE_ANON_KEY = 'TU_SUPABASE_ANON_KEY'; // Reemplaza con tu anon key real
+    var supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
 
   // Al cargar la página, verificamos si hay sesión activa
   document.addEventListener("DOMContentLoaded", async () => {
-    const { data: { session } } = await supabaseClient.auth.getSession();
-    if (session) {
-      actualizarInterfaz(session.access_token, session.user.email);
+    try {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (session) {
+        actualizarInterfaz(session.access_token, session.user.email);
+      }
+    } catch (e) {
+      console.error("Error al obtener sesión:", e);
     }
   });
 
   // Función para pedir correo e iniciar sesión directo
-  async function iniciarSesion() {
+  window.iniciarSesion = async function() {
     const email = prompt("Ingresa tu correo electrónico para enviarte un acceso rápido:");
     if (!email) return;
 
     const { error } = await supabaseClient.auth.signInWithOtp({ 
       email,
       options: {
-        emailRedirectTo: window.location.href // Redirige de vuelta a Predadiction
+        emailRedirectTo: window.location.href
       }
     });
 
@@ -3383,13 +3386,18 @@ function aplicarEstiloNeonDinamico(elementId, probabilidad) {
     } else {
       alert("¡Listo! Te enviamos un correo con tu enlace de acceso directo.");
     }
-  }
+  };
 
   // Valida el acceso contra tu API /api/vip-status
   async function actualizarInterfaz(token, email) {
-    document.getElementById('login-btn').style.display = 'none';
-    document.getElementById('user-info').style.display = 'flex';
-    document.getElementById('user-email').innerText = email;
+    const loginBtn = document.getElementById('login-btn');
+    const userInfo = document.getElementById('user-info');
+    const userEmail = document.getElementById('user-email');
+    const badgeVip = document.getElementById('badge-vip');
+
+    if (loginBtn) loginBtn.style.display = 'none';
+    if (userInfo) userInfo.style.display = 'flex';
+    if (userEmail) userEmail.innerText = email;
 
     try {
       const response = await fetch('/api/vip-status', {
@@ -3400,10 +3408,9 @@ function aplicarEstiloNeonDinamico(elementId, probabilidad) {
 
       const data = await response.json();
 
-      if (data.vip) {
-        document.getElementById('badge-vip').style.display = 'inline-block';
+      if (data.vip && badgeVip) {
+        badgeVip.style.display = 'inline-block';
         console.log("Acceso VIP otorgado hasta:", data.expiresAt);
-        // Aquí puedes ejecutar cualquier función que muestre/desbloquee contenido VIP en tu UI
       } else {
         console.log("Usuario registrado estándar.");
       }
@@ -3412,10 +3419,10 @@ function aplicarEstiloNeonDinamico(elementId, probabilidad) {
     }
   }
 
-  async function cerrarSesion() {
+  window.cerrarSesion = async function() {
     await supabaseClient.auth.signOut();
     window.location.reload();
-  }
+  };
 </script>
 </body>
 </html>
