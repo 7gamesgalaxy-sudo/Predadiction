@@ -3350,12 +3350,12 @@ function aplicarEstiloNeonDinamico(elementId, probabilidad) {
 
         
 <script>
-  // Evitamos conflictos si ya existe una variable previa
-  if (typeof SUPABASE_URL === 'undefined') {
-    var SUPABASE_URL = 'https://swzkzcolwbqkcpiavae.supabase.co';
-    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3emt6Y29sd2Jxa2tjcGlhdmFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkxNTg2NTMsImV4cCI6MjEwNDczNDY1M30.dcFHkKuesvfvAGH_UjmC5pgK5p2SBdpNieYUfNAaFqE'; // Reemplaza con tu anon key real
-    var supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  }
+// Inicialización segura para evitar cualquier conflicto de variables
+if (!window.supabaseClient) {
+  window.spUrl = 'https://swzkzcolwbqkcpiavae.supabase.co';
+window.spKey= 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3emt6Y29sd2Jxa2tjcGlhdmFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkxNTg2NTMsImV4cCI6MjEwNDczNDY1M30.dcFHkKuesvfvAGH_UjmC5pgK5p2SBdpNieYUfNAaFqE'; // Reemplaza con tu anon key real
+  window.supabaseClient = supabase.createClient(window.spUrl, window.spKey);
+}
 
   // Al cargar la página, verificamos si hay sesión activa
   document.addEventListener("DOMContentLoaded", async () => {
