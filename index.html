@@ -3370,16 +3370,17 @@ window.spKey= 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJl
   });
 
   // Función para pedir correo e iniciar sesión directo
-  window.iniciarSesion = async function() {
-    const email = prompt("Ingresa tu correo electrónico para enviarte un acceso rápido:");
-    if (!email) return;
+window.iniciarSesion = async function() {
+  const email = prompt("Ingresa tu correo electrónico para enviarte un acceso rápido:");
+  if (!email) return;
 
-    const { error } = await supabaseClient.auth.signInWithOtp({ 
-      email,
-      options: {
-        emailRedirectTo: window.location.href
-      }
-    });
+  const { error } = await supabaseClient.auth.signInWithOtp({ 
+    email,
+    options: {
+      // Forzamos la redirección exacta al subdominio actual
+      emailRedirectTo: 'https://predadiction.poryfut.com'
+    }
+  });
 
     if (error) {
       alert("Error al iniciar sesión: " + error.message);
