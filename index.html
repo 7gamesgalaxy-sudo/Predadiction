@@ -2085,14 +2085,21 @@
     return;
   }
             
-const responseVip = await supabaseClient.rpc('check_is_vip');
-const isVip = responseVip.data;
-  if (isVip) {
-    unlockVipSection();
-  } else {
-    lockVipSection();
-  }
-}
+// Envuelve la lógica en una función asíncrona autoejecutable:
+(async function() {
+    if (!user) {
+        lockVipSection();
+        return;
+    }
+
+    const responseVip = await supabaseClient.rpc('check_is_vip');
+    const isVip = responseVip.data;
+    if (isVip) {
+        unlockVipSection();
+    } else {
+        lockVipSection();
+    }
+})();
 
 async function redeemVipCode() {
   if (!supabaseClient) return;
