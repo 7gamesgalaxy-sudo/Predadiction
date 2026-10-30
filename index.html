@@ -1948,6 +1948,17 @@
    <p>Desbloquea nuestras 3 combinadas y accede a los pronósticos VIP.</p>
   </header>
 
+<div style="background: rgba(12, 27, 43, 0.9); padding: 20px; border-radius: 10px; border: 1px solid rgba(0, 255, 136, 0.4); text-align: center; margin: 20px 0;">
+    <h4 style="color: var(--accent-green); margin-bottom: 10px; font-family: 'Orbitron', sans-serif;">🔓 Desbloquea el Acceso VIP (1 Mes)</h4>
+    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 15px;">Ingresa tu código de acceso para retirar los candados:</p>
+    
+    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <input type="text" id="input_codigo_vip" placeholder="Ej. VIP-PORY-XXXX" style="padding: 10px 15px; width: 250px; background: #030810; color: #fff; border: 1px solid #4cbeff; border-radius: 5px; font-size: 16px;">
+        <button onclick="redeemVipCode()" style="padding: 10px 20px; background: var(--accent-green); color: #000; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; font-family: 'Orbitron', sans-serif;">ACTIVAR</button>
+    </div>
+</div>
+
+     
   <div class="pv-preview">
    <h3 class="pv-preview-title">TUS 3 COMBINADAS · ACCESO BLOQUEADO</h3>
    <div class="pv-triples">
@@ -2005,12 +2016,117 @@
 
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <script>
-                                                                                    // ===== SUPABASE =====
-const SUPABASE_URL = 'https://swzkzcolwbqkkcpiavae.supabase.co';
-                                                                                    const SUPABASE_ANON_KEY = 'sb_publishable_rwklpjmWZyM9rpumvM75MQ_JDfk1AQG';
-                                                                                    const supabaseClient = (SUPABASE_URL.startsWith('http') && SUPABASE_ANON_KEY.trim())
-                                                                                        ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-                                                                                        : null;
+                                                                                   
+ const SUPABASE_URL = 'https://swzkzcolwbqkkcpiavae.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_rwklpjmWZyM9rpumvM75MQ_JDfk1AQG';
+  const supabaseClient = (SUPABASE_URL.startsWith('http') && SUPABASE_ANON_KEY.trim())
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    : null;
+
+  // -------- Script para la contraseña del VIP --------
+  async function checkVipStatus() {
+    if (!supabaseClient) return;
+    const { data: { user } } = await supabaseClient.auth.getUser();
+
+    if (!user) {
+      lockVipSection();
+      return;
+    }
+
+    const { data: isVip } = await supabaseClient.rpc('check_is_vip');
+    if (isVip) {
+      unlockVipSection();
+    } else {
+      lockVipSection();
+    }
+  }
+
+  async function redeemVipCode() {
+    if (!supabaseClient) return;
+    const codeInput = document.getElementById('input_codigo_vip')?.value;
+
+    if (!codeInput) {
+      alert("Por favor ingresa un código.");
+      return;
+    }
+
+    const { data, error } = await supabaseClient.rpc('activate_vip_membership', { 
+      user_code: codeInput 
+    });
+
+    if (error || !data.success) {
+      alert(data?.message || "Ocurrió un error al canjear el código.");
+      return;
+    }
+
+    alert(data.message);
+    unlockVipSection();
+  }
+
+  function unlockVipSection() {
+    document.querySelectorAll('.vip-locked-overlay').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.vip-content').forEach(el => el.style.display = 'block');
+  }
+
+  function lockVipSection() {
+    document.querySelectorAll('.vip-locked-overlay').forEach(el => el.style.display = 'flex');
+    document.querySelectorAll('.vip-content').forEach(el => el.style.display = 'none');
+  }
+
+  // Llama a la función al cargar la vista
+  checkVipStatus();
+         
+
+  if (!supabaseClient) return;
+  const { data: { user } } = await supabaseClient.auth.getUser();
+
+  if (!user) {
+    lockVipSection();
+    return;
+  }
+
+  const { data: isVip } = await supabaseClient.rpc('check_is_vip');
+  if (isVip) {
+    unlockVipSection();
+  } else {
+    lockVipSection();
+  }
+}
+
+async function redeemVipCode() {
+  if (!supabaseClient) return;
+  const codeInput = document.getElementById('input_codigo_vip')?.value;
+
+  if (!codeInput) {
+    alert("Por favor ingresa un código.");
+    return;
+  }
+
+  const { data, error } = await supabaseClient.rpc('activate_vip_membership', { 
+    user_code: codeInput 
+  });
+
+  if (error || !data.success) {
+    alert(data?.message || "Ocurrió un error al canjear el código.");
+    return;
+  }
+
+  alert(data.message);
+  unlockVipSection();
+}
+
+function unlockVipSection() {
+  document.querySelectorAll('.vip-locked-overlay').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.vip-content').forEach(el => el.style.display = 'block');
+}
+
+function lockVipSection() {
+  document.querySelectorAll('.vip-locked-overlay').forEach(el => el.style.display = 'flex');
+  document.querySelectorAll('.vip-content').forEach(el => el.style.display = 'none');
+}
+
+// Llama a la función al cargar la vista
+checkVipStatus();
 
                                                                                     const TRADUCCIONES = {
                                                                                         en: {
