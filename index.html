@@ -2075,65 +2075,10 @@
 
   // Llama a la función al cargar la vista
   checkVipStatus();
-         
 
-  if (!supabaseClient) return;
-  const { data: { user } } = await supabaseClient.auth.getUser();
+  // El bloque duplicado que causaba 'Illegal return statement' fue eliminado.
 
- 
-            
-// Envuelve la lógica en una función asíncrona autoejecutable:
-(async function() {
-    if (!user) {
-        lockVipSection();
-        return;
-    }
-
-    const responseVip = await supabaseClient.rpc('check_is_vip');
-    const isVip = responseVip.data;
-    if (isVip) {
-        unlockVipSection();
-    } else {
-        lockVipSection();
-    }
-})();
-
-async function redeemVipCode() {
-  if (!supabaseClient) return;
-  const codeInput = document.getElementById('input_codigo_vip')?.value;
-
-  if (!codeInput) {
-    alert("Por favor ingresa un código.");
-    return;
-  }
-
-  const { data, error } = await supabaseClient.rpc('activate_vip_membership', { 
-    user_code: codeInput 
-  });
-
-  if (error || !data.success) {
-    alert(data?.message || "Ocurrió un error al canjear el código.");
-    return;
-  }
-
-  alert(data.message);
-  unlockVipSection();
-}
-
-function unlockVipSection() {
-  document.querySelectorAll('.vip-locked-overlay').forEach(el => el.style.display = 'none');
-  document.querySelectorAll('.vip-content').forEach(el => el.style.display = 'block');
-}
-
-function lockVipSection() {
-  document.querySelectorAll('.vip-locked-overlay').forEach(el => el.style.display = 'flex');
-  document.querySelectorAll('.vip-content').forEach(el => el.style.display = 'none');
-}
-
-// Llama a la función al cargar la vista
-checkVipStatus();
-
-                                                                                    const TRADUCCIONES = {
+  const TRADUCCIONES = {
                                                                                         en: {
                                                                                             subtitle: "⚡️ POISSON MULTI-MARKET ENGINE ⚡️",
                                                                                             matchSel: "🏆 Match Selection",
