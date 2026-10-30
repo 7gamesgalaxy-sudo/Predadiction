@@ -2084,8 +2084,9 @@
     lockVipSection();
     return;
   }
-
-  const { data: isVip } = await supabaseClient.rpc('check_is_vip');
+            
+const responseVip = await supabaseClient.rpc('check_is_vip');
+const isVip = responseVip.data;
   if (isVip) {
     unlockVipSection();
   } else {
