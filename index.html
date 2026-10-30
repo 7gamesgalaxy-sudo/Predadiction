@@ -2080,10 +2080,7 @@
   if (!supabaseClient) return;
   const { data: { user } } = await supabaseClient.auth.getUser();
 
-  if (!user) {
-    lockVipSection();
-    return;
-  }
+ 
             
 // Envuelve la lógica en una función asíncrona autoejecutable:
 (async function() {
