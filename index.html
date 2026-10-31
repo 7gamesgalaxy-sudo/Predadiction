@@ -1360,6 +1360,72 @@
 @media(max-width:480px){.pory-highprob-promo{gap:7px;padding:7px}.pory-highprob-promo .pory-promo-banner{width:78px;max-width:30%;max-height:58px}.pory-highprob-promo .pory-promo-copy{font-size:11px}}
 </style>
 
+
+<style id="predadiction-halloween-spider-style">
+  /* Halloween spider: lightweight CSS/SVG decoration, independent of app logic */
+  #pred-halloween-spider{
+    position:fixed; top:0; right:11%; width:76px; height:218px;
+    z-index:80; pointer-events:none; overflow:visible;
+    filter:drop-shadow(0 3px 5px rgba(0,0,0,.65));
+  }
+  #pred-halloween-spider .web-line{
+    stroke:rgba(235,245,255,.82); stroke-width:1.35;
+    filter:drop-shadow(0 0 3px rgba(220,245,255,.7));
+  }
+  #pred-halloween-spider .web-cross{
+    stroke:rgba(235,245,255,.42); stroke-width:.75;
+  }
+  #pred-halloween-spider .spider-creature{
+    transform-box:fill-box; transform-origin:50% 0%;
+    animation:predSpiderDrop 7.4s ease-in-out infinite;
+  }
+  #pred-halloween-spider .spider-sway{
+    transform-box:fill-box; transform-origin:50% 0%;
+    animation:predSpiderSway 3.1s ease-in-out infinite;
+  }
+  #pred-halloween-spider .spider-legs{
+    transform-box:fill-box; transform-origin:50% 10%;
+    animation:predSpiderLegs 1.8s ease-in-out infinite alternate;
+  }
+  #pred-halloween-spider .spider-eyes{
+    transform-box:fill-box; transform-origin:50% 50%;
+    animation:predSpiderBlink 5.2s infinite;
+  }
+  @keyframes predSpiderDrop{
+    0%,9%{transform:translateY(-2px)}
+    17%{transform:translateY(20px)}
+    22%,29%{transform:translateY(14px)}
+    35%{transform:translateY(0)}
+    43%,57%{transform:translateY(0)}
+    61%{transform:translateY(27px)}
+    65%,69%{transform:translateY(22px)}
+    76%{transform:translateY(-5px)}
+    82%,100%{transform:translateY(-2px)}
+  }
+  @keyframes predSpiderSway{
+    0%,100%{transform:rotate(-5deg)}
+    50%{transform:rotate(6deg)}
+  }
+  @keyframes predSpiderLegs{
+    from{transform:rotate(-4deg)}
+    to{transform:rotate(5deg)}
+  }
+  @keyframes predSpiderBlink{
+    0%,43%,47%,100%{transform:scaleY(1)}
+    45%{transform:scaleY(.08)}
+  }
+  @media(max-width:600px){
+    #pred-halloween-spider{right:5%;width:66px;height:192px}
+    #pred-halloween-spider .spider-creature{transform-origin:50% 0%}
+  }
+  @media(prefers-reduced-motion:reduce){
+    #pred-halloween-spider .spider-creature,
+    #pred-halloween-spider .spider-sway,
+    #pred-halloween-spider .spider-legs,
+    #pred-halloween-spider .spider-eyes{animation:none!important}
+  }
+</style>
+
 </head>
 <body>
 
@@ -3659,6 +3725,60 @@ window.iniciarSesion = async function() {
     window.location.reload();
   };
 </script>
+
+
+<!-- Arañita de Halloween decorativa; no intercepta toques ni clics -->
+<div id="pred-halloween-spider" aria-hidden="true">
+  <svg viewBox="0 0 76 218" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="predSpiderBody" cx="35%" cy="28%" r="75%">
+        <stop offset="0" stop-color="#45434d"/>
+        <stop offset=".48" stop-color="#171821"/>
+        <stop offset="1" stop-color="#030407"/>
+      </radialGradient>
+      <radialGradient id="predSpiderEye" cx="35%" cy="25%" r="70%">
+        <stop offset="0" stop-color="#fff"/>
+        <stop offset=".72" stop-color="#f4f7ff"/>
+        <stop offset="1" stop-color="#aeb9c9"/>
+      </radialGradient>
+    </defs>
+    <g class="web">
+      <path class="web-line" d="M38 -5 L38 157"/>
+      <path class="web-cross" d="M34 18 Q38 22 42 18 M34 38 Q38 42 42 38 M34 58 Q38 62 42 58"/>
+      <path class="web-cross" d="M38 157 L25 143 M38 157 L51 143 M38 157 L23 157 M38 157 L53 157"/>
+    </g>
+    <g class="spider-creature">
+      <g class="spider-sway">
+        <g class="spider-legs" fill="none" stroke="#090a10" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M27 169 Q17 158 9 164 L3 174"/>
+          <path d="M26 176 Q14 171 7 181 L3 190"/>
+          <path d="M28 183 Q17 184 13 196 L12 202"/>
+          <path d="M31 188 Q25 196 25 205"/>
+          <path d="M49 169 Q59 158 67 164 L73 174"/>
+          <path d="M50 176 Q62 171 69 181 L73 190"/>
+          <path d="M48 183 Q59 184 63 196 L64 202"/>
+          <path d="M45 188 Q51 196 51 205"/>
+        </g>
+        <g fill="url(#predSpiderBody)" stroke="#55525f" stroke-width="1">
+          <ellipse cx="38" cy="181" rx="17" ry="19"/>
+          <circle cx="38" cy="165" r="13"/>
+        </g>
+        <path d="M29 175 Q38 169 47 175" fill="none" stroke="#77717e" stroke-opacity=".35" stroke-width="2"/>
+        <g class="spider-eyes">
+          <ellipse cx="32" cy="164" rx="7.1" ry="8.3" fill="url(#predSpiderEye)"/>
+          <ellipse cx="45" cy="164" rx="7.1" ry="8.3" fill="url(#predSpiderEye)"/>
+          <ellipse cx="34" cy="165" rx="3.1" ry="4.4" fill="#080b14"/>
+          <ellipse cx="47" cy="165" rx="3.1" ry="4.4" fill="#080b14"/>
+          <circle cx="33" cy="162.5" r="1.5" fill="#fff"/>
+          <circle cx="46" cy="162.5" r="1.5" fill="#fff"/>
+        </g>
+        <path d="M34 174 Q38 177 42 174" fill="none" stroke="#b7a5a5" stroke-width="1.1" stroke-linecap="round"/>
+        <circle cx="25" cy="181" r="2" fill="#a52b38" opacity=".8"/>
+        <circle cx="51" cy="181" r="2" fill="#a52b38" opacity=".8"/>
+      </g>
+    </g>
+  </svg>
+</div>
 
 </body>
 </html>
